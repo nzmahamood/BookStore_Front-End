@@ -51,7 +51,7 @@ const SignIn = () => {
             <h2 className='text-3xl font-bold tracking-widest font-serif text-slate-500'>Book<span className='font-semibold text-slate-600 font-mono'>Store</span></h2>
         </div>
         {/* form box */}
-        <div className='bg-white w-[310px] md:w-[310px] flex flex-col p-3 drop-shadow-lg border border-1 border-slate-400 rounded-lg mt-5'>
+        <div className='bg-white w-[95%] md:w-[310px] flex flex-col p-3 drop-shadow-lg border border-1 border-slate-400 rounded-lg mt-5'>
             <h2 className='text-xl text-slate-700 tracking-wide text-center font-semibold'>Sign In</h2>
             <form className='flex flex-col' onSubmit={handleSigninSubmit}>
                 <label className='text-md font-mono text-slate-500 p-1 m-1'>Email</label>
