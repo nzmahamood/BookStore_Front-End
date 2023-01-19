@@ -88,7 +88,7 @@ const SignUp = () => {
           Sign up with Microsoft
         </button>
 
-        <span className='text-[10px] font-mono text-slate-600 mt-4 md:mt-5'>Already have an account? <a href='/sign-in' className='text-blue-700 underline'>Sign In here</a></span>
+        <span className='text-[12px] font-mono text-slate-600 mt-4 md:mt-5'>Already have an account? <a href='/sign-in' className='text-blue-700 underline'>Sign In here</a></span>
         </div>
     </div>
   )
