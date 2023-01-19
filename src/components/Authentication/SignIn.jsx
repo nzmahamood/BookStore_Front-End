@@ -76,7 +76,7 @@ const SignIn = () => {
                     Sign in with Microsoft
                     </button>
 
-                <div className='text-[12px] mt-5 pb-3'>
+                <div className='text-sm mt-5 pb-3'>
                     <span className='pr-1 pl-1 text-blue-700 hover:cursor-pointer' onClick={navigateToLink} name='btn-signup'>Create a new account</span>
                     <span className='pl-2'>| |</span>
                     <span className='pl-3 text-red-700 hover:cursor-pointer' onClick={navigateToLink} name='btn-forgot'>Forgot password</span>
