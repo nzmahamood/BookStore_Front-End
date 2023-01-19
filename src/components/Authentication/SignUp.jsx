@@ -48,7 +48,7 @@ const SignUp = () => {
             <h2 className='text-3xl font-bold tracking-widest font-serif text-slate-500'>Book<span className='font-semibold text-slate-600 font-mono'>Store</span></h2>
         </div>
         {/* form box */}
-        <div className='bg-white w-[95%] md:w-[310px] mb-3 flex flex-col p-3 drop-shadow-lg border border-1 border-slate-400 rounded-lg mt-5'>
+        <div className='bg-white w-[90%] md:w-[310px] mb-3 flex flex-col p-3 drop-shadow-lg border border-1 border-slate-400 rounded-lg mt-5'>
         <h2 className='text-xl text-slate-700 tracking-wide text-center font-semibold'>Sign Up</h2>
 
         <form className='flex flex-col' onSubmit={handleSignupSumbit}>
@@ -88,7 +88,7 @@ const SignUp = () => {
           Sign up with Microsoft
         </button>
 
-        <span className='text-sm font-mono text-slate-600 mt-4 md:mt-5'>Already have an account? <a href='/sign-in' className='text-blue-700 underline'>Sign In here</a></span>
+        <span className='text-[10px] font-mono text-slate-600 mt-4 md:mt-5'>Already have an account? <a href='/sign-in' className='text-blue-700 underline'>Sign In here</a></span>
         </div>
     </div>
   )
