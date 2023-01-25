@@ -1,5 +1,7 @@
+import axios from 'axios'
 import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
+import SnackBar from '../snackbar/SnackBar'
 import { validateEmail, validatePass } from './form_validations'
 
 const SignIn = () => {
@@ -11,6 +13,16 @@ const SignIn = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [validateFormError, setValidateFormError] = useState({})
+    const [signInError, setSignInErro] = useState(false)
+
+    useEffect(()=>{
+        if(signInError){
+            const timeoutId = setTimeout(()=>{
+                setSignInErro(false)
+            }, 5000)
+            return () => clearTimeout(timeoutId);
+        }
+    },[signInError])
 
     const handleSigninSubmit = (e) =>{
         e.preventDefault()
@@ -24,8 +36,16 @@ const SignIn = () => {
         
         if(Object.values(formerrors).every(val => val === '')){
             console.log(formerrors)
-            alert('submitted succesfully')
-            navigate('/')
+            const formValues = { email, password}
+           
+            axios.post('url', formValues)
+            .then(response => {
+                console.log(response)
+            })
+            .catch(error => {
+                console.log(error)
+                setSignInErro(true)
+            })
         }
         console.log(Object.keys(formerrors).length)
     }
@@ -83,6 +103,9 @@ const SignIn = () => {
                 </div>
             </div>
         </div>
+        {signInError && <div className='flex flex-row justify-center items-center bottom-0'>
+        <SnackBar type={0} message="Sign In error this is your error code" />
+      </div>}
     </div>
   )
 }

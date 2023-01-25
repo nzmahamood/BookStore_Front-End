@@ -1,5 +1,7 @@
+import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import SnackBar from '../snackbar/SnackBar'
 import { validateConfirmPassword, validateEmail, validatePassword, validateSixCode } from './form_validations'
 
 const ForgotPass = () => {
@@ -13,6 +15,28 @@ const ForgotPass = () => {
     const [password, setPassword] = useState("")
     const [confirmpass, setConfirmpass] = useState("")
     const [validateFormError, setValidateFormError] = useState({})
+    const [error, setError] = useState(false)
+
+    useEffect(()=>{
+        if(error){
+            const timeoutId = setTimeout(()=>{
+                setError(false)
+            }, 5000)
+            return () => clearTimeout(timeoutId);
+        }
+    },[error])
+
+    const postData = (url, data) => {
+        axios.get(url, data)
+        .then(response => {
+            console.log(response)
+            setFormState('code')
+        })
+        .catch(error => {
+            console.log(error)
+            setError(true)
+        })
+    }
 
     const handleEmailSubmit = (e) =>{
         e.preventDefault()
@@ -22,6 +46,8 @@ const ForgotPass = () => {
         setValidateFormError(formerrors)
 
         if(Object.values(formerrors).every(val => val === '')){
+            const formValues = {email}
+            postData('url', formValues)
             setFormState('code')
         }
 
@@ -37,6 +63,8 @@ const ForgotPass = () => {
         setValidateFormError(formerrors)
 
         if(Object.values(formerrors).every(val => val === '')){
+            const formValues = {email, code}
+            postData('url', formValues)
             setFormState('reset')
         }
     }
@@ -53,7 +81,9 @@ const ForgotPass = () => {
         setValidateFormError(formerrors)
 
         if(Object.values(formerrors).every(val => val === '')){
-            alert('password reset successfully')
+            const formValues = {email, password}
+            postData('url', formValues)
+
             navigate('/')
         }
     }
@@ -112,7 +142,9 @@ const ForgotPass = () => {
         
         
         </div>
-            
+        {error && <div className='flex flex-row justify-center items-center bottom-0'>
+        <SnackBar type={0} message="Sign In error this is your error code" />
+      </div>}
     </div>
   )
 }

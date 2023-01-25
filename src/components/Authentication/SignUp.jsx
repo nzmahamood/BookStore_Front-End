@@ -1,10 +1,18 @@
+import axios from 'axios';
 import React, {useEffect, useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import {toast} from 'react-toastify'
+import { useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { RegistrationContext } from '../../contexts/RegistrationContext';
+import { messageReducer, registrationSuccess } from '../../contexts/store/RegistrationSlice';
 import { validateName, validateEmail, validatePassword, validateConfirmPassword, validateAcceptTerms } from './form_validations';
+import SnackBar from '../snackbar/SnackBar';
 
 const SignUp = () => {
   document.title = "Sign-Up || BookStore"
   const navigate = useNavigate()
+  const prepath = useLocation()
 
   //hooks for form
   const [name, setName] = useState("")
@@ -12,14 +20,32 @@ const SignUp = () => {
   const [password, setPassword] = useState("")
   const [confirmpass, setConfirmpass] = useState("")
   const [acceptterms, setAcceptTerms] = useState(true)
+  const [regError, setRegError] = useState(false) 
 
   //hook for validation
   const [validateFormError, setValidateFormError] = useState({})
 
+  //const [registrationSuccess, setRegistrationSuccess] = useState(false)
+  
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    if(regError){
+      const timeoutId = setTimeout(() => {
+        // Function to execute after 5 seconds
+        setRegError(false)
+      }, 5000);
+  
+      return () => clearTimeout(timeoutId);
+    }
+  },[regError])
   //form submit
   const handleSignupSumbit = (e) =>{
+    //dispatch(messageReducer({ name: "name", age: 20, email: "emailo@email.com" }))
     e.preventDefault()
-
+    
+    console.log("pathname: "+prepath.state)
+    
     let formerrors = {}
 
     formerrors.name = validateName(name)
@@ -32,8 +58,22 @@ const SignUp = () => {
 
     if(Object.values(formerrors).every(val => val === '')){
       console.log("Done")
-      alert('Form Submitted')
-      navigate('/')
+      const formValues = { name, email, password, confirmpass }
+      axios.post('url', formValues)
+      .then(response => {
+        console.log(response)
+       // setRegistrationSuccess(true)
+        //dispatch({ type: 'REGISTRATION_SUCCESS' });
+        dispatch(messageReducer({success: true, successMessage: "Registeredd"}))
+        
+        navigate('/')
+
+      })
+      .catch(error => {
+        console.log(error)
+        setRegError(true)
+      })
+      //navigate('/')
     }
   }
 
@@ -43,6 +83,8 @@ const SignUp = () => {
         window.scrollTo(0, 0);
       }, []);
   return (
+     <RegistrationContext.Provider value={{registrationSuccess: registrationSuccess}}>
+      
     <div className='w-screen h-screen flex flex-col items-center overflow-y-scroll no-scrollbar'>
       <div className='p-2 pr-3 pl-3 bg-gradient-to-r from-teal-100 to-teal-50 rounded-lg mt-12'>
             <h2 className='text-3xl font-bold tracking-widest font-serif text-slate-500'>Book<span className='font-semibold text-slate-600 font-mono'>Store</span></h2>
@@ -90,7 +132,14 @@ const SignUp = () => {
 
         <span className='text-[12px] font-mono text-slate-600 mt-4 md:mt-5'>Already have an account? <a href='/sign-in' className='text-blue-700 underline'>Sign In here</a></span>
         </div>
+        {regError ? 
+        <div className='flex flex-row justify-center items-center bottom-0'>
+        <SnackBar type={0} message="Registration error this is your error code" />
+      </div>
+        : null}
+        
     </div>
+    </RegistrationContext.Provider>
   )
 }
 
