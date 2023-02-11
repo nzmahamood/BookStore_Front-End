@@ -3,6 +3,7 @@ import registrationReducer from './RegistrationSlice'
 import { persistReducer } from 'redux-persist';
 import storage from "redux-persist/lib/storage";
 import persistStore from "redux-persist/es/persistStore";
+import tokenReducer from "./tokenSlice";
 // Create the store
 
 const persistConfig = {
@@ -12,7 +13,8 @@ const persistConfig = {
 
 
 const reducer = combineReducers({
-    registration: registrationReducer
+    registration: registrationReducer,
+    token: tokenReducer,
 })
 const persistedReducer = persistReducer(persistConfig, reducer)
 
@@ -22,5 +24,4 @@ const store = configureStore({
         serializableCheck: false,
     }),
 });
-
 export default store

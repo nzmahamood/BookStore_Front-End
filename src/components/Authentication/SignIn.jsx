@@ -1,6 +1,9 @@
 import axios from 'axios'
 import React, {useEffect, useState} from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { storeTokenReducer } from '../../contexts/store/tokenSlice'
+import AxiosRequest from '../../utils/axios'
 import SnackBar from '../snackbar/SnackBar'
 import { validateEmail, validatePass } from './form_validations'
 
@@ -8,6 +11,7 @@ const SignIn = () => {
     document.title = "Sign-In || BookStore"
     const ms_logo = require('../../assets/ms-logo.png')
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     //hooks for forms
     const [email, setEmail] = useState("")
@@ -24,7 +28,7 @@ const SignIn = () => {
         }
     },[signInError])
 
-    const handleSigninSubmit = (e) =>{
+    const handleSigninSubmit = async (e) =>{
         e.preventDefault()
 
         let formerrors = {}
@@ -38,14 +42,16 @@ const SignIn = () => {
             console.log(formerrors)
             const formValues = { email, password}
            
-            axios.post('url', formValues)
-            .then(response => {
-                console.log(response)
-            })
-            .catch(error => {
-                console.log(error)
+            try {
+                const signinResponse = await AxiosRequest('http://localhost:8000/users/signin', formValues, 'POST')
+                console.log(signinResponse)
+                dispatch(storeTokenReducer({access: signinResponse.access, refresh: signinResponse.refresh}))
+                navigate('/')
+
+            } catch (error) {
                 setSignInErro(true)
-            })
+                console.log(error)
+            }
         }
         console.log(Object.keys(formerrors).length)
     }
@@ -63,12 +69,17 @@ const SignIn = () => {
         }
         else if(event.target.getAttribute('name') === 'btn-forgot'){
             navigate('/forgot-password')
+        }else{
+            navigate('/')
         }
     }
   return (
     <div className='w-screen h-screen flex flex-col items-center overflow-y-scroll no-scrollbar'>
-        <div className='p-2 pr-3 pl-3 bg-gradient-to-r from-teal-100 to-teal-50 rounded-lg mt-12'>
-            <h2 className='text-3xl font-bold tracking-widest font-serif text-slate-500'>Book<span className='font-semibold text-slate-600 font-mono'>Store</span></h2>
+        <div onClick={navigateToLink} className='p-2 pr-3 pl-3 bg-gradient-to-r from-teal-500 to-teal-700 rounded-lg mt-12'>
+        <div className='flex items-center justify-center hover:cursor-pointer'>
+        <svg className='h-6 fill-slate-50' viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m352 96c0-53.02-42.98-96-96-96s-96 42.98-96 96 42.98 96 96 96 96-42.98 96-96zm-118.41 145.1c-59.33-36.32-155.43-46.3-203.79-49.05-16.25-.92-29.8 11.46-29.8 27.09v222.8c0 14.33 11.59 26.28 26.49 27.05 43.66 2.29 131.99 10.68 193.04 41.43 9.37 4.72 20.48-1.71 20.48-11.87v-245.99c-.01-4.67-2.32-8.95-6.42-11.46zm248.61-49.05c-48.35 2.74-144.46 12.73-203.78 49.05-4.1 2.51-6.41 6.96-6.41 11.63v245.79c0 10.19 11.14 16.63 20.54 11.9 61.04-30.72 149.32-39.11 192.97-41.4 14.9-.78 26.49-12.73 26.49-27.06v-222.82c-.01-15.63-13.56-28.01-29.81-27.09z"/></svg>
+        <h4 className='px-2 mt-1 text-slate-50 text-center font-inter font-semibold font-italic'>Book<span className='font-inter font-semibold'>Store</span></h4>
+        </div>
         </div>
         {/* form box */}
         <div className='bg-white w-[90%] md:w-[310px] flex flex-col p-3 drop-shadow-lg border border-1 border-slate-400 rounded-lg mt-5'>

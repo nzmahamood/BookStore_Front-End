@@ -5,6 +5,19 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      inter: "'Inter Tight', sans-serif",
+    },
+    fontStyle: {
+      italic: "italic",
+
+    },
+    fontWeight: {
+      regular: 400,
+      medium: 500,
+      semibold: 600,
+      bold: 700
+    },
   },
   plugins: [],
 }
