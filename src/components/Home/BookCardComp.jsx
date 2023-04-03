@@ -2,17 +2,25 @@ import React from 'react'
 import { HeartIcon } from "@heroicons/react/24/outline"
 import { Basket } from '../../utils/svg'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { addItemToBasket } from '../../contexts/store/BasketSlice'
 
 const BookCardComp = ({bookDetails}) => {
     const book = require('../../utils/book.jpg')
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const handleCardClick = (id) =>{
         console.log('id', id)
         navigate(`/book-detail/${id}`)
     }
+
+    const handleAddToBasket = (item) => {
+        console.log('itemID', item)
+        dispatch(addItemToBasket(item))
+    }
   return (
-    <div className='w-[132px] h-[315px] md:w-[162px] md:h-[362px] drop-shadow-lg flex flex-col mt-3 bg-slate-50 rounded relative hover:cursor-pointer' onClick={() => handleCardClick(bookDetails.id)}>
+    <div className='w-[132px] h-[315px] md:w-[162px] md:h-[362px] drop-shadow-lg flex flex-col mt-3 bg-slate-50 rounded relative hover:cursor-pointer'>
         
         {/* div for book cover image */}
         <div className='w-full h-[195px] md:h-[235px] flex justify-center relative'>
@@ -43,7 +51,7 @@ const BookCardComp = ({bookDetails}) => {
                 <button className='p-1 w-9 h-8 text-slate-600 bg-slate-300 rounded-md flex items-center justify-center'>
                     <HeartIcon className='w-6'/>
                 </button>
-                <button className='p-1 w-9 h-8 bg-teal-700 text-white rounded-md flex items-center justify-center'><Basket height='h-5'></Basket></button>
+                <button className='p-1 w-9 h-8 bg-teal-700 text-white rounded-md flex items-center justify-center' onClick={()=> handleAddToBasket(bookDetails)}><Basket height='h-5'></Basket></button>
             </div>
         </div>
     </div>

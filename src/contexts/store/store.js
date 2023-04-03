@@ -4,6 +4,7 @@ import { persistReducer } from 'redux-persist';
 import storage from "redux-persist/lib/storage";
 import persistStore from "redux-persist/es/persistStore";
 import tokenReducer from "./tokenSlice";
+import basketReducer from "./BasketSlice";
 // Create the store
 
 const persistConfig = {
@@ -15,6 +16,7 @@ const persistConfig = {
 const reducer = combineReducers({
     registration: registrationReducer,
     token: tokenReducer,
+    basket: basketReducer,
 })
 const persistedReducer = persistReducer(persistConfig, reducer)
 

@@ -21,6 +21,7 @@ import BookDetail from "./components/BookCard/BookDetails/BookDetail";
 import BookDetailView from "./components/BookCard/DetailComponents/BookDetailView";
 import BookList from "./components/BookCard/BookHome/BookList";
 import AllBookLists from "./components/BookCard/BookHome/AllBookLists";
+import BasketContainer from "./components/Basket/BasketContainer";
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
           <Route path="/container" element={<AllBookLists />} />
           <Route path="/book-details/:id" element={<BookDetail />} />
           <Route path="/book-detail/:id" element={<BookDetailView />} />
+          <Route path="/basket" element={<BasketContainer />} />
           <Route path="*" element={<NotFound />} />
           
         </Routes>
