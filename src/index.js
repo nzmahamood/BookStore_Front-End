@@ -9,16 +9,22 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import { BrowserRouter as Router } from 'react-router-dom';
+import { StyledEngineProvider } from '@mui/material';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 let persistor = persistStore(store)
 root.render(
   <React.StrictMode>
+    <Router>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <App />
+        <StyledEngineProvider injectFirst>
+          <App />
+        </StyledEngineProvider>
       </PersistGate>
     </Provider>
+    </Router>
   </React.StrictMode>
 );
 

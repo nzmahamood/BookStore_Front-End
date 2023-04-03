@@ -23,13 +23,13 @@ const AllNavbars = () => {
   return (
     <>
     {!isMobile && <TopNavbar />}
-    
+    <header className='sticky top-0 z-[1000] w-full'>
     { isMobile ? <PrimaryNavBar />: <PrimaryNavBarLarge />}
     
     {!isMobile && <SecondaryNavBar />}
+    </header>
     
     </>
   )
 }
-
 export default AllNavbars

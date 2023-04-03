@@ -3,13 +3,27 @@ import { Bars3Icon, HeartIcon, ChevronDownIcon  } from "@heroicons/react/24/outl
 import AccountMenu from './AccountMenu'
 import MobileMenu from './MobileMenu'
 import { useState } from 'react'
+import SearchFilter from './SearchFilter'
+import { useNavigate } from 'react-router-dom'
 
 
 const PrimaryNavBar = () => {
     const logo = require('../../assets/book-reader.svg')
     const [showMenu, setShowMenu] = useState(false)
+    const [query, setQuery] = useState('')
+    const navigate = useNavigate({})
+    const handleSearch = (e) => {
+        e.preventDefault();
+        navigate(`/search/${query}`)
+
+
+    }
+
+    const handleSearchChange = (e) => {
+        setQuery(e.target.value)
+    }
   return (
-    <nav className='relative flex md:hidden flex-col bg-gradient-to-r from-teal-600 to-teal-900 h-[106px] w-ful'>
+    <nav className='relative flex md:hidden flex-col bg-gradient-to-r from-teal-600 to-teal-900 h-[106px] w-full'>
         {/* mobile primary navbar */}
         <div className='flex justify-between items-center w-full h-[54px] top-0 absolute'>
             <div className='h-[54px] w-[54px] flex items-center justify-center'>
@@ -38,18 +52,23 @@ const PrimaryNavBar = () => {
             </div>
         </div>
         {/* mobile search box */}
-        <div className='h-[40px] w-full bg-white absolute bottom-0 flex flex-row justify-between border-b border-slate-300 rounded'>
-            {/* filter */}
-            <div className='filter flex items-center justify-center h-full w-[18.67%] border-r border-slate-500'>
-                <span className='font-inter text-slate-700 font-medium'>All</span>
-                <ChevronDownIcon className='pl-2 h-4 text-slate-900' />
-            </div>
-            {/* search input */}
-            <div className='flex flex-row w-[81.33%] h-full'>
-                <input className='w-[83.6%] h-full top-0 pl-3 focus: outline-none' placeholder='Search books, ISBN, author etc...' type='search' />
-                <button className='h-full w-[16.39%] bg-teal-600 flex justify-center items-center rounded-l' type='submit'>
-                    <svg className='h-6 w-6' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path className='fill-slate-50' d="m0 0h24v24h-24z" fill="#fff" opacity="0"/><path className='fill-slate-50' d="m20.71 19.29-3.4-3.39a7.92 7.92 0 0 0 1.69-4.9 8 8 0 1 0 -8 8 7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zm-15.71-8.29a6 6 0 1 1 6 6 6 6 0 0 1 -6-6z" fill="#231f20"/></svg>
-                </button>
+        <div className='w-full flex justify-center absolute bottom-1 h-[40px]'>
+            <div className='h-[40px] w-[95%] bg-white relative flex flex-row justify-between border-b border-slate-300 rounded'>
+                {/* filter */}
+                <SearchFilter />
+                {/* <select className='filter flex items-center justify-center h-full w-[18.67%] border-r border-slate-500 rounded-tl rounded-bl text-xs font-inter focus:outline-none'>
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="opel">Opel</option>
+                    <option value="audi">Audi</option>
+                </select> */}
+                {/* search input */}
+                <form className='flex flex-row w-[81.33%] h-full' onSubmit={handleSearch}>
+                    <input onChange={handleSearchChange} className='w-[79%] text-sm block truncate h-full top-0 pl-3 focus: outline-none' placeholder='Search books, ISBN, author etc...' type='search' />
+                    <button className='absolute right-0 h-full w-[16.5%] bg-teal-600 flex justify-center items-center rounded' type='submit'>
+                        <svg className='h-5 w-5' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path className='fill-slate-50' d="m0 0h24v24h-24z" fill="#fff" opacity="0"/><path className='fill-slate-50' d="m20.71 19.29-3.4-3.39a7.92 7.92 0 0 0 1.69-4.9 8 8 0 1 0 -8 8 7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zm-15.71-8.29a6 6 0 1 1 6 6 6 6 0 0 1 -6-6z" fill="#231f20"/></svg>
+                    </button>
+                </form>
             </div>
         </div>
     </nav>

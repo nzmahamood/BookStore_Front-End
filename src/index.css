@@ -10,12 +10,79 @@ body{
   background-color: #ffffff;
 }
 
+
+
 .font-italic {
   font-style: italic;
 }
 
 .font-regular {
   font-weight: 400;
+}
+.slick-list {
+  padding: 1px !important;
+}
+.slick-slider {
+  display: flex !important;
+}
+@layer components{
+.book-col {
+  flex: 0 0 25%;
+  max-width: 25%;
+  
+}
+.book-col-xs{
+  flex: 0 0 100%;
+  position: relative;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.book-col-sm{
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.book-col-md{
+  flex: 0 0 33%;
+  max-width: 33%;
+}
+.book-col-reg{
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.clamp {
+  display: '-webkit-box';
+  WebkitBoxOrient: 'vertical';
+  overflow: 'hidden';
+  textOverflow: 'ellipsis';
+  WebkitLineClamp: 3;
+}
+.book-col-lg{
+  flex: 0 0 16.6%;
+  max-width: 16.6%;
+}
+
+.animate-menu{
+  transition: top .6s ease-out;
+}
+.menu-close{
+  transition: top .6s ease-in;
+}
+
+.mobile-menu{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0px;
+  z-index: 5000;
+  float: left;
+  min-width: 10rem;
+  width: 100%;
+  border-width: 0px;
+
+}
+
 }
 
 @layer utilities {

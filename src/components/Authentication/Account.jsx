@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import AxiosRequest from '../../utils/axios'
+import { BASE_URL_NET } from '../../utils/domains'
 import { decodeToken, isTokenExpired, RefreshAccessToken } from '../../utils/utils'
 
 const Account = () => {
@@ -31,7 +32,7 @@ const Account = () => {
             const config = {
                 Authorization: `Bearer ${access_token}`
             }
-            const res = await axios.get('http://localhost:8000/users/testauth', {
+            const res = await axios.get(`${BASE_URL_NET}/users/testauth`, {
                 headers: {
                     Authorization: `Bearer ${access_token}`
                 }

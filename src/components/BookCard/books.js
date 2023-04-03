@@ -1,17 +1,4 @@
-[
-  {
-    "image": "https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/mid/9781/5098/9781509858637.jpg",
-    "name": "This is Going to Hurt",
-    "author": "Adam Kay",
-    "format": "Paperback",
-    "book_depository_stars": 4.5,
-    "price": 7.6,
-    "currency": "$",
-    "old_price": 11.4,
-    "isbn": 9781510000000,
-    "category": "Medical",
-    "img_paths": "dataset/Medical/0000001.jpg"
-  },
+const books = [
   {
     "image": "https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/mid/9780/1410/9780141033570.jpg",
     "name": "Thinking, Fast and Slow",
@@ -37,19 +24,6 @@
     "isbn": 9781780000000,
     "category": "Medical",
     "img_paths": "dataset/Medical/0000003.jpg"
-  },
-  {
-    "image": "https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/mid/9781/8452/9781845298258.jpg",
-    "name": "The Happiness Trap",
-    "author": "Russ Harris",
-    "format": "Paperback",
-    "book_depository_stars": 4,
-    "price": 8.34,
-    "currency": "$",
-    "old_price": 13.9,
-    "isbn": 9781850000000,
-    "category": "Medical",
-    "img_paths": "dataset/Medical/0000004.jpg"
   },
   {
     "image": "https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/mid/9781/8460/9781846041242.jpg",
@@ -884,3 +858,6 @@
     "img_paths": "dataset/Art-Photography/0000486.jpg"
   }
 ]
+
+
+export {books}

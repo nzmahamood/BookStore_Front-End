@@ -1,9 +1,9 @@
+
 import React, { useEffect, useState } from 'react'
 import Slider from 'react-slick'
-import { data } from '../../utils/books'
-import BookCardComp from './BookCardComp'
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import CardComponent from './CardComponent';
 
 
 
@@ -23,8 +23,7 @@ function NextArrow(props) {
         className={`lg:shadow lg:hover:shadow-md h-9 w-9 text-gray-500 hover:cursor-pointer block absolute right-[-10px] md:right-[-50px] top-[50%]`}
     />)
 }
-
-const BookSlider = ({book}) => {
+const SliderComponent = ({book}) => {
     const settings = {
         infinite: false,
         speed: 900,
@@ -88,10 +87,10 @@ const BookSlider = ({book}) => {
           ]
         }
   return (
-    <Slider {...settings} className='flex justify-center gap-4 ml-7 md:ml-5'>
-        {book.map((books) => <BookCardComp bookDetails={books}/>)}
+    <Slider {...settings} className='flex min-h-[100%] justify-center gap-4 ml-7 md:ml-5'>
+        {book.map((books) => <div className='min-h-[20%]'>{books.name}</div>)}
     </Slider>
   )
 }
 
-export default BookSlider
+export default SliderComponent

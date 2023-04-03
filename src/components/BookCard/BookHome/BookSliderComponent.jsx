@@ -1,30 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import { Container } from '@mui/material'
+import React from 'react'
 import Slider from 'react-slick'
-import { data } from '../../utils/books'
-import BookCardComp from './BookCardComp'
-import { ChevronLeftIcon } from "@heroicons/react/24/outline";
-import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import BookCardComponent from '../BookCardComponent'
 
+const BookSliderComponent = ({books}) => {
+    function NextArrow(props){
+        return
+    }
 
-
-
-function PrevArrow(props) {
-    const { onClick } = props;
-    return(<ChevronLeftIcon 
-        onClick={onClick}
-        className={`lg:shadow lg:hover:shadow-md h-9 w-9 text-gray-500 hover:cursor-pointer  left-[-39px] md:left[-50px] absolute top-[50%] block`}
-         />)
-}
-
-function NextArrow(props) {
-    const { onClick } = props;
-    return(<ChevronRightIcon 
-        onClick={onClick}
-        className={`lg:shadow lg:hover:shadow-md h-9 w-9 text-gray-500 hover:cursor-pointer block absolute right-[-10px] md:right-[-50px] top-[50%]`}
-    />)
-}
-
-const BookSlider = ({book}) => {
+    function PrevArrow(props){
+        return
+    }
     const settings = {
         infinite: false,
         speed: 900,
@@ -88,10 +74,15 @@ const BookSlider = ({book}) => {
           ]
         }
   return (
-    <Slider {...settings} className='flex justify-center gap-4 ml-7 md:ml-5'>
-        {book.map((books) => <BookCardComp bookDetails={books}/>)}
-    </Slider>
+    <Container className='mt-3'>
+        <Slider {...settings} className='p-1'>
+            {books.map((book) => (
+                <BookCardComponent data={book} />
+            ))}
+        </Slider>
+    </Container>
+    
   )
 }
 
-export default BookSlider
+export default BookSliderComponent
