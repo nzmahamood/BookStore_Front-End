@@ -33,9 +33,15 @@ const BasketItem = ({item}) => {
             {/* <IconButton size='small' aria-label='delete'  onClick={()=> handleRemoveItem(item.id)}>
                 <DeleteOutline />
             </IconButton> */}
-            <div className='md:flex hidden items-center h-[60px] overflow-hidden'>
-                <h4 className='font-semibold tracking-wide text-[15px] text-slate-900'>{item.title}</h4>
+            <div className='hidden: md:flex flex-col'>
+                <div className='md:flex hidden items-center h-[60px] overflow-hidden'>
+                    <h4 className='font-semibold tracking-wide text-[15px] text-slate-900'>{item.title}</h4>
+                </div>
+                <div className='md:flex hidden items-start h-[36px]'>
+                        <span className='font-semibold text-slate-600 text-[10px] tracking-wide'>{item.authors}</span>
+                </div>
             </div>
+            
         </div>
         <div className='flex flex-grow md:flex-grow-0 md:basis-[32%] flex-col md:flex-row-reverse md:justify-around font-inter px-3'>
             <div className='flex md:hidden items-center h-[60px] overflow-hidden'>
@@ -50,7 +56,7 @@ const BasketItem = ({item}) => {
             <div className='w-full flex justify-between md:flex-grow-0 md:basis-[50%] md:items-start flex-grow'>
                 <div className='flex-1 flex justify-around md:pt-4 items-center'>
                     <IconButton onClick={() => {handleDecrementItem(item.id)}}><RemoveCircleOutline /></IconButton>
-                    <TextField size='small' className='w-[35px] h-[35px]' value={item.quantity}/>
+                    <TextField size='small' className='w-[50px] h-[35px]' value={item.quantity}/>
                     <IconButton onClick={()=>{handleIncrementItem(item)}}><AddCircleOutline /></IconButton>
                 </div>
                 <div className='flex-1 md:hidden flex justify-end'>
