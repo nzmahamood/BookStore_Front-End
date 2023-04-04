@@ -15,7 +15,7 @@ const BasketContainer = () => {
             <Button variant='contained' size='medium' className='bg-teal-700 md:w-[300px]'>Checkout <span>| (Total: $99.99)</span></Button>
         </div>
         
-        <ul className='w-full md:flex pb-4 border-b border-[silver] font-inter font-medium tracking-wide text-slate-900 hidden'>
+        <ul className='w-full md:flex pb-4 mb-3 border-b border-[silver] font-inter font-medium tracking-wide text-slate-900 hidden'>
             <li className='basis-[64%] max-w-[64%]'>Item</li>
             <li className='basis-[16%] max-w-[16%] text-center'>Qty</li>
             <li className='basis-[16%] max-w-[16%] text-center'>Price</li>
