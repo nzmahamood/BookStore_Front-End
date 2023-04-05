@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@google-pay/button-react": "^3.0.6",
     "@headlessui/react": "^1.7.10",
     "@heroicons/react": "^2.0.14",
     "@mui/icons-material": "^5.11.0",

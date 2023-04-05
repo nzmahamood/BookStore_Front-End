@@ -9,6 +9,7 @@ import { messageReducer, registrationSuccess } from '../contexts/store/Registrat
 import { signoutReducer } from '../contexts/store/tokenSlice';
 import AxiosRequest from '../utils/axios';
 import SnackBar from './snackbar/SnackBar';
+import { BASE_URL_NET } from '../utils/domains';
 
 
 function Main() {
@@ -25,7 +26,7 @@ function Main() {
             navigate('sign-up')
         }else if(e.target.name === 'signout'){
             dispatch(signoutReducer())
-            const response = await AxiosRequest('http://localhost:8000/users/signout', {refresh: refresh_token}, 'POST')
+            const response = await AxiosRequest(`${BASE_URL_NET}/users/signout`, {refresh: refresh_token}, 'POST')
             console.log(response)
             setSnackStatus(true)
 

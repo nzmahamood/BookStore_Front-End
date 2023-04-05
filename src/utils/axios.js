@@ -6,13 +6,15 @@ async function AxiosRequest(url = '', data = {}, method = '') {
             const response = await axios.post(url, data)
             return response.data
         } catch (error) {
-            if(error.response){
-                throw error.response.data
-            }else if(error.request){
-                throw error.request
-            }else{
-                throw error
+            let errorMessage = ''
+            if (error.response) {
+              errorMessage = error.response.data.message || error.response.statusText
+            } else if (error.request) {
+              errorMessage = 'Network error: no response received'
+            } else {
+              errorMessage = error.message
             }
+            throw errorMessage
         } 
     }
 }

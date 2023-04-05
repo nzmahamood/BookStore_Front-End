@@ -22,10 +22,12 @@ import BookDetailView from "./components/BookCard/DetailComponents/BookDetailVie
 import BookList from "./components/BookCard/BookHome/BookList";
 import AllBookLists from "./components/BookCard/BookHome/AllBookLists";
 import BasketContainer from "./components/Basket/BasketContainer";
+import MuiSnackBar from "./components/snackbar/MuiSnackBar";
 
 
 function App() {
   const registrationStatus = useSelector(state => state.registration.success)
+  const snackbar = useSelector((state) => state.snack)
   
   const location = useLocation();
   const [showNav, setShowNav] = useState(true);
@@ -72,7 +74,7 @@ function App() {
       <SnackBar message="Regisered Succesfully"/>
       </div>
        : null}
-      
+      <MuiSnackBar open={snackbar.open} message={snackbar.message} severity={snackbar.severity} />
        
     </div>
     

@@ -26,12 +26,20 @@ const basketSlice = createSlice({
             }
         }
         },
+        deleteItemFromBasket: (state, action) => {
+            const itemId = action.payload;
+            const existingItemIndex = state.findIndex((basketItem) => basketItem.id === itemId);
+      
+            if (existingItemIndex !== -1) {
+              state.splice(existingItemIndex, 1);
+            }
+          },
         clearBasket: (state) => {
             state.splice(0, state.length);
           },
     }
 })
 
-export const { addItemToBasket, removeItemFromBasket, clearBasket } = basketSlice.actions;
+export const { addItemToBasket, removeItemFromBasket, deleteItemFromBasket, clearBasket } = basketSlice.actions;
 
 export default basketSlice.reducer;

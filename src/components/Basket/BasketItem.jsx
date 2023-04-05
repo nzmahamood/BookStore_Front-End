@@ -2,16 +2,18 @@ import { AddCircleOutline, DeleteOutline, RemoveCircleOutline } from '@mui/icons
 import { Box, Paper, IconButton, TextField, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { addItemToBasket, clearBasket, removeItemFromBasket } from '../../contexts/store/BasketSlice'
+import { addItemToBasket, clearBasket, deleteItemFromBasket, removeItemFromBasket } from '../../contexts/store/BasketSlice'
+import { showMessage } from '../../contexts/store/SnackSlice'
 
 
 const BasketItem = ({item}) => {
     const dispatch = useDispatch()
     let availability = true
 
-    const handleRemoveItem = (item) => {
-        console.log('removedItem', item)
-        dispatch(removeItemFromBasket(item.id))
+    const handleRemoveItem = (itemID) => {
+        console.log('removedItem', itemID)
+        dispatch(deleteItemFromBasket(itemID))
+        dispatch(showMessage({message: `${item.title} removed from Basket`, severity: 'error'}))
     }
 
     const handleIncrementItem = (item) => {
@@ -22,6 +24,7 @@ const BasketItem = ({item}) => {
         dispatch(removeItemFromBasket(item));
     };
 
+    let totalPrice = (item.quantity * item.average_rating).toFixed(2);
 
   return (
     <Box className='w-full h-[192px] md:h-[235px] flex mb-3 border-b border-[silver]'>
@@ -34,7 +37,7 @@ const BasketItem = ({item}) => {
             {/* <IconButton size='small' aria-label='delete'  onClick={()=> handleRemoveItem(item.id)}>
                 <DeleteOutline />
             </IconButton> */}
-            <div className='hidden: md:flex flex-col'>
+            <div className='hidden md:flex flex-col'>
                 <div className='md:flex hidden items-center h-[60px] overflow-hidden'>
                     <h4 className='font-semibold tracking-wide text-[15px] text-slate-900'>{item.title}</h4>
                 </div>
@@ -45,20 +48,23 @@ const BasketItem = ({item}) => {
             </div>
             
         </div>
-        <div className='flex flex-grow md:flex-grow-0 md:basis-[32%] flex-col md:flex-row-reverse md:justify-around font-inter px-3'>
-            <div className='flex md:hidden items-center h-[60px] overflow-hidden'>
+        <div className='flex flex-grow md:flex-grow-0 md:basis-[48%] flex-col md:flex-row-reverse md:justify-around font-inter px-3'>
+            <div className='flex md:hidden items-start max-h-[60px] overflow-hidden'>
                 <h4 className='font-semibold tracking-wide text-[15px] text-slate-900'>{item.title}</h4>
             </div>
-            <div className='flex md:hidden items-start h-[36px]'>
+            <div className='flex mt-1 md:hidden items-start h-[28px]'>
                 <span className='font-semibold text-slate-600 text-[10px] tracking-wide'>{item.authors}</span>
             </div>
             <div className='flex md:basis-[50%] md:justify-between items-center md:flex-col md:h-full h-[36px]'>
-                <h4 className='font-semibold text-sm text-teal-700 md:pt-5'>$ {item.average_rating}</h4>
+                <h4 className='font-semibold text-sm text-teal-700 md:pt-[1.5rem]'><span className='md:hidden text-xs text-slate-700'>Price : </span>$ {item.average_rating}</h4>
                 <div className='hidden md:flex mb-2'>
                     <IconButton aria-label='delete' size='small' onClick={()=>{handleRemoveItem(item.id)}}>
                         <DeleteOutline className='text-red-700'/>
                     </IconButton>
                 </div>
+            </div>
+            <div className='flex md:basis-[50%] md:justify-between items-center md:flex-col md:h-full h-[36px]'>
+                <h4 className='font-semibold text-sm text-teal-700 md:pt-[1.5rem]'><span className='md:hidden text-xs text-slate-700'>Total Price : </span>$ {totalPrice}</h4>
             </div>
             <div className='w-full flex justify-between md:flex-grow-0 md:basis-[50%] md:items-start flex-grow'>
                 <div className='flex-1 flex justify-around md:pt-4 items-center'>
@@ -68,7 +74,7 @@ const BasketItem = ({item}) => {
                 </div>
                 <div className='flex-1 md:hidden flex justify-end'>
                     <IconButton aria-label='delete' size='small' onClick={()=>{handleRemoveItem(item.id)}}>
-                        <DeleteOutline />
+                        <DeleteOutline className='text-red-700'/>
                     </IconButton>
                 </div>
             </div>

@@ -11,6 +11,7 @@ import SnackBar from '../snackbar/SnackBar';
 import AxiosRequest from '../../utils/axios';
 import { storeTokenReducer } from '../../contexts/store/tokenSlice';
 import { BASE_URL_NET } from '../../utils/domains';
+import { showMessage } from '../../contexts/store/SnackSlice';
 
 const SignUp = () => {
   document.title = "Sign-Up || BookStore"
@@ -72,14 +73,15 @@ const SignUp = () => {
       try {
         const signupResponse = await AxiosRequest(`${BASE_URL_NET}/users/signup`, formValues, 'POST')
         console.log(signupResponse.access)
-        dispatch(messageReducer({success: true, successMessage: "Registeredd"}))
+        dispatch(showMessage({message: 'Registration Successful', severity: 'success'}))
         dispatch(storeTokenReducer({access: signupResponse.access, refresh: signupResponse.refresh}))
         console.log(`access: ${access_token} refresh: ${refresh_token}`)
         navigate('/')
       } catch (error) {
+        dispatch(showMessage({message: error, severity: 'error'}))
         console.log(error.email ? error.email : error)
-        setRegError(true)
-        setRegErrorMsg(error.email ? error.email : 'Network error: Connection Failed 500')
+        //setRegError(true)
+        //setRegErrorMsg(error.email ? error.email : 'Network error: Connection Failed 500')
         console.log(regErrorMsg)
       }
     }

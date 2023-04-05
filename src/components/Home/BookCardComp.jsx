@@ -1,25 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { HeartIcon } from "@heroicons/react/24/outline"
 import { Basket } from '../../utils/svg'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addItemToBasket } from '../../contexts/store/BasketSlice'
+import MuiSnackBar from '../snackbar/MuiSnackBar'
+import { showMessage } from '../../contexts/store/SnackSlice'
 
 const BookCardComp = ({bookDetails}) => {
     const book = require('../../utils/book.jpg')
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const [open, setOpen] = useState(false)
 
     const handleCardClick = (id) =>{
         console.log('id', id)
         navigate(`/book-detail/${id}`)
     }
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpen(false);
+      };
+
     const handleAddToBasket = (item) => {
         console.log('itemID', item)
         dispatch(addItemToBasket(item))
+        dispatch(showMessage({message: `${bookDetails.title} added to Basket`, severity:'success'}))
     }
   return (
+    <>
     <div className='w-[132px] h-[315px] md:w-[162px] md:h-[362px] drop-shadow-lg flex flex-col mt-3 bg-slate-50 rounded relative hover:cursor-pointer'>
         
         {/* div for book cover image */}
@@ -55,6 +67,7 @@ const BookCardComp = ({bookDetails}) => {
             </div>
         </div>
     </div>
+    </>
   )
 }
 
