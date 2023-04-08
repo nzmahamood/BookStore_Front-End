@@ -23,6 +23,7 @@ import BookList from "./components/BookCard/BookHome/BookList";
 import AllBookLists from "./components/BookCard/BookHome/AllBookLists";
 import BasketContainer from "./components/Basket/BasketContainer";
 import MuiSnackBar from "./components/snackbar/MuiSnackBar";
+import Checkout from "./components/Checkout/Checkout.tsx";
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
           <Route path="/book-details/:id" element={<BookDetail />} />
           <Route path="/book-detail/:id" element={<BookDetailView />} />
           <Route path="/basket" element={<BasketContainer />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="*" element={<NotFound />} />
           
         </Routes>

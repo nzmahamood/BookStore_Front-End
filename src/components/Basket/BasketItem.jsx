@@ -56,7 +56,7 @@ const BasketItem = ({item}) => {
                 <span className='font-semibold text-slate-600 text-[10px] tracking-wide'>{item.authors}</span>
             </div>
             <div className='flex md:basis-[50%] md:justify-between items-center md:flex-col md:h-full h-[36px]'>
-                <h4 className='font-semibold text-sm text-teal-700 md:pt-[1.5rem]'><span className='md:hidden text-xs text-slate-700'>Price : </span>$ {item.average_rating}</h4>
+                <h4 className='flex gap-1 font-semibold text-sm text-teal-700 md:pt-[1.5rem]'><span className='md:hidden text-xs text-slate-700'>Price : </span><span className='block md:hidden'>$ {item.average_rating}</span><span className='hidden md:block'>$ {totalPrice}</span></h4>
                 <div className='hidden md:flex mb-2'>
                     <IconButton aria-label='delete' size='small' onClick={()=>{handleRemoveItem(item.id)}}>
                         <DeleteOutline className='text-red-700'/>
@@ -64,7 +64,7 @@ const BasketItem = ({item}) => {
                 </div>
             </div>
             <div className='flex md:basis-[50%] md:justify-between items-center md:flex-col md:h-full h-[36px]'>
-                <h4 className='font-semibold text-sm text-teal-700 md:pt-[1.5rem]'><span className='md:hidden text-xs text-slate-700'>Total Price : </span>$ {totalPrice}</h4>
+                <h4 className='flex gap-1 font-semibold text-sm text-teal-700 md:pt-[1.5rem]'><span className='md:hidden text-xs text-slate-700'>Total Price : </span><span className='block md:hidden'>$ {totalPrice}</span><span className='md:block hidden'>$ {item.average_rating}</span></h4>
             </div>
             <div className='w-full flex justify-between md:flex-grow-0 md:basis-[50%] md:items-start flex-grow'>
                 <div className='flex-1 flex justify-around md:pt-4 items-center'>

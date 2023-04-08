@@ -28,7 +28,7 @@ const BasketContainer = () => {
             <h2 className='text-slate-900 font-inter tracking-wider text-[29px] md:text-[32px] xl:text-[39px] font-medium'>Shopping Basket</h2>
         </Box>
         <div className='w-full p-2 flex justify-center md:justify-end'>
-            <Button variant='contained' size='medium' className='hidden md:block capitalize text-sm bg-teal-700 md:w-[300px]'>Checkout <span>| (Total: $99.99)</span></Button>
+            <Button variant='contained' size='medium' className='hidden md:block capitalize text-sm bg-teal-700 md:w-[300px]'>Checkout <span>| (Total: ${grandTotal})</span></Button>
         </div>
         
         <ul className='w-full md:flex pb-4 mb-3 border-b border-[silver] font-inter font-medium tracking-wide text-slate-900 hidden'>
