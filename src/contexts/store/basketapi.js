@@ -22,3 +22,5 @@ const add_to_cart = (data) => {
         return error
     })
 }
+
+export {add_to_cart}

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { add_to_cart } from "./basketapi";
 
 
 
@@ -15,6 +16,8 @@ const basketSlice = createSlice({
             } else {
               state.push({ ...item, quantity: 1 });
             }
+            const response = add_to_cart(state)
+            console.log(response)
           },
         removeItemFromBasket: (state, action) => {
         const itemId = action.payload;
