@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { HeartIcon } from "@heroicons/react/24/outline"
 import { Basket } from '../../utils/svg'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addItemToBasket } from '../../contexts/store/BasketSlice'
 import MuiSnackBar from '../snackbar/MuiSnackBar'
@@ -32,6 +32,7 @@ const BookCardComp = ({bookDetails}) => {
     }
   return (
     <>
+    <Link to={`/book-detail/${bookDetails.id}`}>
     <div className='w-[132px] h-[315px] md:w-[162px] md:h-[362px] drop-shadow-lg flex flex-col mt-3 bg-slate-50 rounded relative hover:cursor-pointer'>
         
         {/* div for book cover image */}
@@ -63,10 +64,11 @@ const BookCardComp = ({bookDetails}) => {
                 <button className='p-1 w-9 h-8 text-slate-600 bg-slate-300 rounded-md flex items-center justify-center'>
                     <HeartIcon className='w-6'/>
                 </button>
-                <button className='p-1 w-9 h-8 bg-teal-700 text-white rounded-md flex items-center justify-center' onClick={()=> handleAddToBasket(bookDetails)}><Basket height='h-5'></Basket></button>
+                <button className='p-1 w-9 h-8 bg-teal-700 text-white rounded-md flex items-center justify-center' onClick={(e)=> {e.preventDefault(); handleAddToBasket(bookDetails)}}><Basket height='h-5'></Basket></button>
             </div>
         </div>
     </div>
+    </Link>
     </>
   )
 }

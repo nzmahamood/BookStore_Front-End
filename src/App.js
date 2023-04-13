@@ -23,7 +23,8 @@ import BookList from "./components/BookCard/BookHome/BookList";
 import AllBookLists from "./components/BookCard/BookHome/AllBookLists";
 import BasketContainer from "./components/Basket/BasketContainer";
 import MuiSnackBar from "./components/snackbar/MuiSnackBar";
-import Checkout from "./components/Checkout/Checkout.tsx";
+import Checkout from "./components/Checkout/Checkout";
+import ListBooks from "./components/Home/ListBooks";
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
           </Route>
           <Route path="/home" element={<Home />} />
           <Route path="/search/:query" element={<Search />} />
+          <Route path="/books/:category" element={<ListBooks />} />
           <Route path="/card" element={<CardBook />} />
           <Route path="/container" element={<AllBookLists />} />
           <Route path="/book-details/:id" element={<BookDetail />} />

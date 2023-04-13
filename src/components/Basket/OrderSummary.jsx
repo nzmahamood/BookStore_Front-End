@@ -1,9 +1,18 @@
 import React from 'react'
 import { Box, Typography, TextField, Button } from '@mui/material'
 import CheckoutGoogle from './CheckoutGoogle'
-
+import {useNavigate} from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { grandTotalReducer } from '../../contexts/store/GrandTotalSlice'
 
 const OrderSummary = ({subTotal, promo, grandTotal}) => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const handleCheckout = () => {
+        dispatch(grandTotalReducer({total: grandTotal}))
+        navigate('/checkout')
+    }
   return (
     <>
     <div className='flex w-full md:justify-end'>
@@ -24,7 +33,7 @@ const OrderSummary = ({subTotal, promo, grandTotal}) => {
                 <Typography variant='h5' className='text-sm font-semibold text-teal-900 tracking-wider font-inter'>${grandTotal}</Typography>
             </div>
             <div className='flex flex-col gap-2 mt-2 sticky bottom-3 md:static'>
-                <Button variant='contained' className='bg-gradient-to-r from-teal-600 to-teal-900 font-inter text-[16px] capitalize tracking-wider' size='medium'>Proceed To Checkout</Button>
+                <Button variant='contained' className='bg-gradient-to-r from-teal-600 to-teal-900 font-inter text-[16px] capitalize tracking-wider' onClick={handleCheckout} size='medium'>Proceed To Checkout</Button>
                 <CheckoutGoogle />
             </div>
         </Box>
