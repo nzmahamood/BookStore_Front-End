@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { HeartIcon } from "@heroicons/react/24/outline"
 import { Basket } from '../../utils/svg'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addItemToBasket } from '../../contexts/store/BasketSlice'
 import MuiSnackBar from '../snackbar/MuiSnackBar'
 import { showMessage } from '../../contexts/store/SnackSlice'
@@ -12,6 +12,7 @@ const BookCardComp = ({bookDetails}) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
+    const {access_token} = useSelector((state)=> state.token)
 
     const handleCardClick = (id) =>{
         console.log('id', id)

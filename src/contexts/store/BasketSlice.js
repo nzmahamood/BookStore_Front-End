@@ -16,8 +16,8 @@ const basketSlice = createSlice({
             } else {
               state.push({ ...item, quantity: 1 });
             }
-            const response = add_to_cart(state)
-            console.log(response)
+            const add =add_to_cart(item)
+            console.log(add)
           },
         removeItemFromBasket: (state, action) => {
         const itemId = action.payload;
