@@ -28,7 +28,7 @@ const BookCardComp = ({bookDetails}) => {
 
     const handleAddToBasket = (item) => {
         console.log('itemID', item)
-        dispatch(addItemToBasket(item))
+        dispatch(addItemToBasket({item, access_token}))
         dispatch(showMessage({message: `${bookDetails.title} added to Basket`, severity:'success'}))
     }
   return (

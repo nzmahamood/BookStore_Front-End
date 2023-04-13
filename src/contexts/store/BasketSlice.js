@@ -8,7 +8,8 @@ const basketSlice = createSlice({
     initialState: [],
     reducers: {
         addItemToBasket: (state, action) => {
-            const item = action.payload;
+          console.log(action.payload)
+            const item = action.payload.item;
             const existingItemIndex = state.findIndex((basketItem) => basketItem.id === item.id);
       
             if (existingItemIndex !== -1) {
@@ -16,7 +17,7 @@ const basketSlice = createSlice({
             } else {
               state.push({ ...item, quantity: 1 });
             }
-            const add =add_to_cart(item)
+            const add =add_to_cart(item, action.payload.access_token)
             console.log(add)
           },
         removeItemFromBasket: (state, action) => {
