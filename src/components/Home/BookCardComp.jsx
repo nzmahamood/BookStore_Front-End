@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addItemToBasket } from '../../contexts/store/BasketSlice'
 import MuiSnackBar from '../snackbar/MuiSnackBar'
 import { showMessage } from '../../contexts/store/SnackSlice'
+import { add_to_cart } from '../../contexts/store/basketapi'
 
 const BookCardComp = ({bookDetails}) => {
     const book = require('../../utils/book.jpg')
@@ -28,8 +29,18 @@ const BookCardComp = ({bookDetails}) => {
 
     const handleAddToBasket = (item) => {
         console.log('itemID', item)
-        dispatch(addItemToBasket({item, access_token}))
-        dispatch(showMessage({message: `${bookDetails.title} added to Basket`, severity:'success'}))
+        // dispatch(addItemToBasket({item, access_token}))
+        try{
+            const add = add_to_cart(item, access_token)
+            console.log(add)
+
+        }catch(error){
+            console.log(error)
+        }finally{
+            dispatch(showMessage({message: `${bookDetails.title} added to Basket`, severity:'success'}))
+        }
+        
+        
     }
   return (
     <>

@@ -17,8 +17,6 @@ const basketSlice = createSlice({
             } else {
               state.push({ ...item, quantity: 1 });
             }
-            const add =add_to_cart(item, action.payload.access_token)
-            console.log(add)
           },
         removeItemFromBasket: (state, action) => {
         const itemId = action.payload;
