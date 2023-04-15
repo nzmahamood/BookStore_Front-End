@@ -6,7 +6,7 @@ import ForgotPass from "./components/Authentication/ForgotPass";
 import SignUp from "./components/Authentication/SignUp";
 import MuiSignUp from "./components/Authentication/MuiSignUp";
 import MuiSignIn from "./components/Authentication/MuiSignIn";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SnackBar from "./components/snackbar/SnackBar";
 import PrivateRoute from "./utils/PrivateRoute";
 import Account from "./components/Authentication/Account";
@@ -25,18 +25,45 @@ import BasketContainer from "./components/Basket/BasketContainer";
 import MuiSnackBar from "./components/snackbar/MuiSnackBar";
 import Checkout from "./components/Checkout/Checkout";
 import ListBooks from "./components/Home/ListBooks";
+import axios from "axios";
+import { BASE_URL_NET } from "./utils/domains";
+import { fetchBasketItems, setBasketItems } from "./contexts/store/BasketSlice";
 
 
 function App() {
+  const dispatch = useDispatch()
   const registrationStatus = useSelector(state => state.registration.success)
   const snackbar = useSelector((state) => state.snack)
+  const {access_token} = useSelector((state) => state.token)
+  const basket = useSelector(state => state.basket)
   
   const location = useLocation();
   const [showNav, setShowNav] = useState(true);
 
   useEffect(() => {
+    console.log('basketapp', basket)
     const pathnames = ["/sign-in", "/sign-up", "/forgot-password", "/", "/user/sign-up", "/user/sign-in"];
     setShowNav(!pathnames.includes(location.pathname));
+    const fetchBasket = async () => {
+      try{
+        const res = await axios.get(`${BASE_URL_NET}/basket/api/basket/`, {
+          headers:{
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${access_token}`
+          }
+      })
+      const basketItems = res.data
+      console.log('basketItems', basketItems)
+      // dispatch(setBasketItems(basketItems))
+      }catch(error){
+        console.log(error)
+      }
+    }
+
+    if(access_token){
+      // fetchBasket()
+      // dispatch(fetchBasketItems({access_token}))
+    }
   }, [location.pathname]);
 
   

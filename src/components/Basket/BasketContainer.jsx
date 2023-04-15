@@ -1,17 +1,47 @@
 import { Box, Button, Container } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BasketItem from './BasketItem'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import OrderSummary from './OrderSummary'
+import axios from "axios"
+import { BASE_URL_NET } from '../../utils/domains'
+import { fetchBasketItems } from '../../contexts/store/BasketSlice'
+import EmptyBasket from './EmptyBasket'
 
 const BasketContainer = () => {
-    const items = useSelector(state => state.basket)
+    const dispatch = useDispatch()
+    const {access_token} = useSelector(state => state.token)
+    const items = useSelector((state) => state.basket)
+    // const [items, setItems] = useState([])
+
+    useEffect(()=>{
+        axios.get(`${BASE_URL_NET}/basket/api/basket/`, {
+            headers:{
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${access_token}`
+            }
+        })
+        .then(response => {
+            console.log(response.data)
+            // setItems(response.data)
+            console.log('items', items)
+        })
+        .catch(error =>{
+            console.log(error)
+        })
+
+        if(access_token){
+            console.log(access_token)
+        }
+        
+            
+    },[])
 
     const subTotal = () => {
         let total = 0;
 
-        items.forEach(item => {
-            const itemPrice = parseFloat(item.average_rating)
+        !items.loading && items.books?.forEach(item => {
+            const itemPrice = parseFloat(item.book.average_rating)
             const itemQuantity = parseInt(item.quantity)
             const itemTotalPrice = itemPrice * itemQuantity
             total += itemTotalPrice
@@ -37,8 +67,22 @@ const BasketContainer = () => {
             <li className='basis-[16%] max-w-[16%] text-center'>Price</li>
             <li className='basis-[16%] max-w-[16%] text-center'>Total Price</li>
         </ul>
-        {items.map(item => <BasketItem item={item} />)}
-        <OrderSummary subTotal={subTotal()} discount={discount} grandTotal={grandTotal}/>
+        {items.loading && <p>loading....</p>}
+        {
+            !items.loading && items.books.length ? (
+                <>
+                {items.books.map(item => (
+                    <BasketItem
+                    key={item.id}
+                    item={item.book}
+                    qty={item.quantity}
+                    />
+                ))}
+                <OrderSummary subTotal={subTotal()} discount={discount} grandTotal={grandTotal}/>
+                </>
+            ) : !items.loading && <EmptyBasket />
+        }
+        
         
     </Container>
   )

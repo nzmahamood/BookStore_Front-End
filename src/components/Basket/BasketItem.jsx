@@ -1,30 +1,34 @@
 import { AddCircleOutline, DeleteOutline, RemoveCircleOutline } from '@mui/icons-material'
 import { Box, Paper, IconButton, TextField, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { addItemToBasket, clearBasket, deleteItemFromBasket, removeItemFromBasket } from '../../contexts/store/BasketSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { addItemToBasket, addToBasketAsync, clearBasket, deleteFromBasketAsync, deleteItemFromBasket, removeFromBasketAsync, removeItemFromBasket } from '../../contexts/store/BasketSlice'
 import { showMessage } from '../../contexts/store/SnackSlice'
 
 
-const BasketItem = ({item}) => {
+const BasketItem = ({item, qty}) => {
     const dispatch = useDispatch()
     let availability = true
+    const {access_token} = useSelector((state) => state.token)
 
     const handleRemoveItem = (itemID) => {
         console.log('removedItem', itemID)
-        dispatch(deleteItemFromBasket(itemID))
+        // dispatch(deleteItemFromBasket(itemID))
+        dispatch(deleteFromBasketAsync({itemID, access_token}))
         dispatch(showMessage({message: `${item.title} removed from Basket`, severity: 'error'}))
     }
 
     const handleIncrementItem = (item) => {
-        dispatch(addItemToBasket(item));
+        // dispatch(addItemToBasket(item))
+        dispatch(addToBasketAsync({item, access_token}))
     };
     
     const handleDecrementItem = (item) => {
-        dispatch(removeItemFromBasket(item));
+        // dispatch(removeItemFromBasket(item))
+        dispatch(removeFromBasketAsync({item, access_token}))
     };
 
-    let totalPrice = (item.quantity * item.average_rating).toFixed(2);
+    let totalPrice = (qty * item.average_rating).toFixed(2);
 
   return (
     <Box className='w-full h-[192px] md:h-[235px] flex mb-3 border-b border-[silver]'>
@@ -69,7 +73,7 @@ const BasketItem = ({item}) => {
             <div className='w-full flex justify-between md:flex-grow-0 md:basis-[50%] md:items-start flex-grow'>
                 <div className='flex-1 flex justify-around md:pt-4 items-center'>
                     <IconButton onClick={() => {handleDecrementItem(item.id)}}><RemoveCircleOutline /></IconButton>
-                    <TextField size='small' className='w-[50px] h-[35px]' value={item.quantity}/>
+                    <TextField size='small' className='w-[50px] h-[35px]' value={qty}/>
                     <IconButton onClick={()=>{handleIncrementItem(item)}}><AddCircleOutline /></IconButton>
                 </div>
                 <div className='flex-1 md:hidden flex justify-end'>

@@ -3,7 +3,7 @@ import { HeartIcon } from "@heroicons/react/24/outline"
 import { Basket } from '../../utils/svg'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { addItemToBasket } from '../../contexts/store/BasketSlice'
+import { addItemToBasket, addToBasketAsync } from '../../contexts/store/BasketSlice'
 import MuiSnackBar from '../snackbar/MuiSnackBar'
 import { showMessage } from '../../contexts/store/SnackSlice'
 import { add_to_cart } from '../../contexts/store/basketapi'
@@ -13,7 +13,7 @@ const BookCardComp = ({bookDetails}) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false)
-    const {access_token} = useSelector((state)=> state.token)
+    const { access_token } = useSelector(state => state.token)
 
     const handleCardClick = (id) =>{
         console.log('id', id)
@@ -28,11 +28,10 @@ const BookCardComp = ({bookDetails}) => {
       };
 
     const handleAddToBasket = (item) => {
-        console.log('itemID', item)
         // dispatch(addItemToBasket({item, access_token}))
         try{
-            const add = add_to_cart(item, access_token)
-            console.log(add)
+            console.log('acss', access_token)
+            dispatch(addToBasketAsync({item, access_token}))
 
         }catch(error){
             console.log(error)

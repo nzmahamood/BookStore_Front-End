@@ -7,6 +7,8 @@ import tokenReducer from "./tokenSlice";
 import basketReducer from "./BasketSlice";
 import snackReducer from "./SnackSlice"
 import totalReducer from "./GrandTotalSlice"
+import thunk from 'redux-thunk'
+
 // Create the store
 
 const persistConfig = {
@@ -28,9 +30,7 @@ const persistedReducer = persistReducer(persistConfig, reducer)
 
 const store = configureStore({
     reducer: persistedReducer,
-    middleware: getDefaultMiddleware({
-        serializableCheck: false,
-    }),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat(thunk), // Add Redux Thunk middleware,
 });
 
 
