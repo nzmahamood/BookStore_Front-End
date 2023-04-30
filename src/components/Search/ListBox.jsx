@@ -19,8 +19,8 @@ const sortBy = [
     {key: 'latest', value: 'Latest'},
 ]
 const ListBox = ({type, data}) => {
-    const options = type === 'Sort By' ? sortBy : data;
-    const [selected, setSelected] = useState(options[0])
+    const options = type === 'Sort By' ? sortBy : data||[];
+    const [selected, setSelected] = useState(options?.[0])
 
     return (
         <div className=" w-full">

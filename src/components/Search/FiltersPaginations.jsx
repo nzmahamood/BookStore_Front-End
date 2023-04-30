@@ -6,7 +6,7 @@ import { PaginationItem } from '@mui/material';
 import CustomPaginator from './CustomPaginator';
 
 const FiltersPaginations = ({data, paginations, currentPage}) => {
-  const totalPages = Math.ceil(data.length / 14)
+  const totalPages = Math.ceil(data?.length / 14)
   const pageNumbers = []
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);

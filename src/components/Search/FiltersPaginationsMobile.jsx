@@ -4,7 +4,7 @@ import ListBox from './ListBox'
 import CustomPaginator from './CustomPaginator'
 const FiltersPaginationsMobile = ({data, paginations, currentPage}) => {
 
-  const totalPages = Math.ceil(data.length / 14)
+  const totalPages = Math.ceil(data?.length / 14)
   const pageNumbers = []
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
@@ -13,7 +13,7 @@ const FiltersPaginationsMobile = ({data, paginations, currentPage}) => {
     <div className='block md:hidden h-[102px] relative top-16'>
       <div className='w-full h-[62px] md:h-[64px] flex items-center border-b border-slate-700 relative'>
         <div className='absolute left-0'>
-          <h5 className='font-inter font-medium text-sm md:text-lg text-slate-900'><span className='text-teal-700'>{data.length}</span> Results</h5>
+          <h5 className='font-inter font-medium text-sm md:text-lg text-slate-900'><span className='text-teal-700'>{data?.length}</span> Results</h5>
         </div>
         
         <div className='absolute right-0 flex gap-3'>

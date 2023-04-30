@@ -11,7 +11,7 @@ const BookContainer = ({categoryName, books}) => {
         <div className='w-full h-[50px] md:h-[109px] flex items-center border-b border-slate-900'>
             <div className='float-left h-auto font-inter font-semibold text-slate-900 text-[14px] md:text-[24px] pl-1 md:pl-3'><span>{categoryName}</span></div>
             <div className='float-right h-auto absolute right-0 flex items-center pr-2'>
-              <Link to={`/books/${categoryName}`}>
+              <Link to={`/books/${categoryName}`} state={{books}}>
                 <button className='bg-teal-700 text-white font-inter font-regular text-xs p-2 md:text-[16px] w-[102px] md:w-[121px] rounded'>View More</button>
                 </Link>
             </div>
