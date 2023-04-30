@@ -14,7 +14,7 @@ const DashboardTop = () => {
     <Grid container spacing={2}>
         {cardItems.map((card) => 
             <Grid item xs={3}>
-            <Paper elevation={2} className='p-[1rem]'>
+            <Paper elevation={2} className='p-[1rem] min-h-[200px]'>
                 <Box className='w-full h-9 flex gap-2 items-center'>{card.icon}
                     <Typography variant='h5' className='text-sm'>{card.name}</Typography>
                 </Box>

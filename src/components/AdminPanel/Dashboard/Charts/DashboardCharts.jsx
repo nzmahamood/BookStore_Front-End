@@ -8,6 +8,7 @@ import { Chart, CategoryScale,
     Filler,
     Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import OrderLineChart from './OrderLineChart';
 
 Chart.register(CategoryScale,
     LinearScale,
@@ -81,7 +82,7 @@ const DashboardCharts = ({ type }) => {
 
   return (
     <div className="max-w-[95%] h-[72px] absolute bottom-[-15px] right-[-10px]">
-      {type === 'Orders' && <Line data={chartData} options={options} />}
+       <OrderLineChart />
     </div>
   );
 };
