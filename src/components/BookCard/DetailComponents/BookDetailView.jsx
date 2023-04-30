@@ -36,7 +36,7 @@ const BookDetailView = () => {
         <Container size='small' className='w-full p-0'>
             <TitleAndAuthorComponent title={book.title} authors={book.authors} rating={book.average_rating} rateCount={book.ratings_count}/>
             <PriceComp price={book.average_rating}/>
-            <ButtonComp />
+            <ButtonComp book={book}/>
             <DescriptionComp description={book.description} />
         </Container>
         

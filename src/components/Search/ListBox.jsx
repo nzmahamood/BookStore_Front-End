@@ -28,7 +28,7 @@ const ListBox = ({type, data}) => {
           <div className="relative">
             <Listbox.Button className="relative flex items-center justify-center w-full cursor-default py-3 pl-3 pr-10 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                 <div className='flex md:gap-3 md:items-center md:justify-center'>
-                <span className='md:flex font-inter font-semibold text-xs lg:text-[16px] text-slate-900'>{type === "Sort By" ? "Sort": type} <span className='hidden md:block px-1'>|</span></span><span className="hidden md:block truncate font-inter font-regular text-xs">{type === "Sort By" ? selected.value : selected.category}</span>
+                <span className='md:flex font-inter font-semibold text-xs lg:text-[16px] text-slate-900'>{type === "Sort By" ? "Sort": type} <span className='hidden md:block px-1'>|</span></span><span className="hidden md:block truncate font-inter font-regular text-xs">{type === "Sort By" ? selected.value : selected?.categories}</span>
 
                 </div>
                 
@@ -64,7 +64,7 @@ const ListBox = ({type, data}) => {
                             selected ? 'font-medium' : 'font-normal'
                           }`}
                         >
-                          {type === "Sort By" ? option.value : option.category}
+                          {type === "Sort By" ? option.value : option?.categories}
                         </span>
                         {selected ? (
                           <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">

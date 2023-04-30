@@ -98,6 +98,7 @@ const basketSlice = createSlice({
     name: 'basket',
     initialState: {
       loading: false,
+      basket_id: 0,
       books: [],
       error: ''
     },
@@ -226,8 +227,10 @@ const basketSlice = createSlice({
           // Handle fulfilled action of removeFromBasketAsync here
           // You can access the data returned by the async thunk from action.payload
           // For example, you can update the state based on the response data
+          console.log('action-data', action.payload)
           state.loading = false
-          state.books = action.payload
+          state.books = action.payload.basket_items
+          state.basket_id = action.payload.id
           state.error = ''
           console.log('basketFetchstate:', state);
         })
@@ -237,6 +240,7 @@ const basketSlice = createSlice({
           // For example, you can update the state or show an error message
           state.loading = false
           state.books = []
+          state.basket_id = 0
           state.error = action.error
           console.log('clearBasket rejected:', action.error);
         })

@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import SearchBooksContainer from './SearchBooksContainer';
-import SearchHeader from './SearchHeader'
-import { data } from '../../utils/books'
-import { books } from '../BookCard/books';
-import axios from 'axios'
-import { BASE_URL_NET } from '../../utils/domains';
-const Search = () => {
-    const {query} = useParams();
+import React, { useEffect, useState } from 'react'
+import SearchHeader from '../../Search/SearchHeader'
+import SearchBooksContainer from '../../Search/SearchBooksContainer'
+import { BASE_URL_NET } from '../../../utils/domains';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
+const BookCategories = () => {
+    const {category} = useParams();
     const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage] = useState(16);
 
@@ -17,32 +16,29 @@ const Search = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        `${BASE_URL_NET}/books/api/books/search/?q=${query}`
+        `${BASE_URL_NET}/books/api/books/search/?q=${category}`
       );
       setBooksData(result.data);
-      console.log(booksData)
     };
     fetchData();
-  }, [query]);
+  }, [category]);
 
-  console.log("search", query);
+  console.log("search", category);
 
   // Logic for displaying current books
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
   const currentBooks = booksData.slice(indexOfFirstBook, indexOfLastBook);
-  
 
-  // Logic for changing page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <main className='flex justify-center min-h-[62vh] w-full mb-11'>
         <div className='relative top-3 flex p-3 flex-col w-full md:w-[75%]  min-h-[75vh]'>
-            <SearchHeader search={query} data={booksData} pagination={paginate} currentPage={currentPage}/>
+            <SearchHeader search={category}  pagination={paginate} currentPage={currentPage}/>
             <SearchBooksContainer data={currentBooks}/>
         </div> 
     </main>
   )
 }
 
-export default Search
+export default BookCategories

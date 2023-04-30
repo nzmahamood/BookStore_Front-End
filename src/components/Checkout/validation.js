@@ -3,24 +3,24 @@ import * as Yup from 'yup'
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
 const initialValues = {
-    firstname: '',
-    lastname: '',
+    first_name: '',
+    last_name: '',
     phone: '',
     country: '',
-    streetaddress: '',
+    street_address: '',
     city: '',
-    postcode: '',
+    post_code: '',
     notes: '',
     
 }
 const validation = Yup.object({
-    firstname: Yup.string().required('First Name is required'),
-    lastname: Yup.string().required('Last Name is required'),
+    first_name: Yup.string().required('First Name is required'),
+    last_name: Yup.string().required('Last Name is required'),
     phone: Yup.string().required('Phone Number is required'),
     country: Yup.string().required('Country is required'),
-    streetaddress: Yup.string().required('Street Address is required'),
+    street_address: Yup.string().required('Street Address is required'),
     city: Yup.string().required('City is required'),
-    postcode: Yup.string().required('Post Codee is required'),
+    post_code: Yup.string().required('Post Codee is required'),
     notes: Yup.string().notRequired(),
 })
 

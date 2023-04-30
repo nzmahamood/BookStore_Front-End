@@ -24,10 +24,13 @@ import AllBookLists from "./components/BookCard/BookHome/AllBookLists";
 import BasketContainer from "./components/Basket/BasketContainer";
 import MuiSnackBar from "./components/snackbar/MuiSnackBar";
 import Checkout from "./components/Checkout/Checkout";
-import ListBooks from "./components/Home/ListBooks";
 import axios from "axios";
 import { BASE_URL_NET } from "./utils/domains";
 import { fetchBasketItems, setBasketItems } from "./contexts/store/BasketSlice";
+import BookCategories from "./components/Home/categories/BookCategories";
+import ViewProfile from "./components/Profile/ViewProfile";
+import ViewOrders from "./components/Profile/ViewOrders";
+import AdminPanel from "./components/AdminPanel/AdminPanel";
 
 
 function App() {
@@ -36,14 +39,17 @@ function App() {
   const snackbar = useSelector((state) => state.snack)
   const {access_token} = useSelector((state) => state.token)
   const basket = useSelector(state => state.basket)
+  const {pathname} = useLocation()
   
   const location = useLocation();
   const [showNav, setShowNav] = useState(true);
 
   useEffect(() => {
-    console.log('basketapp', basket)
-    const pathnames = ["/sign-in", "/sign-up", "/forgot-password", "/", "/user/sign-up", "/user/sign-in"];
+    const pathnames = ["/sign-in", "/sign-up", "/forgot-password", "/", "/user/sign-up", "/user/sign-in", "/admin", "/admin/orders", "/admin/customers", "/admin/sales", "/admin/books", "/admin/orders/view/:id",];
     setShowNav(!pathnames.includes(location.pathname));
+    if(pathname.startsWith('/admin')){
+      setShowNav(false)
+    }
     const fetchBasket = async () => {
       try{
         const res = await axios.get(`${BASE_URL_NET}/basket/api/basket/`, {
@@ -61,10 +67,9 @@ function App() {
     }
 
     if(access_token){
-      // fetchBasket()
-      // dispatch(fetchBasketItems({access_token}))
+      dispatch(fetchBasketItems({access_token}))
     }
-  }, [location.pathname]);
+  }, [location.pathname, dispatch, access_token]);
 
   
   return (
@@ -87,13 +92,17 @@ function App() {
           </Route>
           <Route path="/home" element={<Home />} />
           <Route path="/search/:query" element={<Search />} />
-          <Route path="/books/:category" element={<ListBooks />} />
+          <Route path="/books/:category" element={<BookCategories />} />
           <Route path="/card" element={<CardBook />} />
           <Route path="/container" element={<AllBookLists />} />
           <Route path="/book-details/:id" element={<BookDetail />} />
           <Route path="/book-detail/:id" element={<BookDetailView />} />
           <Route path="/basket" element={<BasketContainer />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/profile" element={<ViewProfile />} />
+          <Route path="/orders" element={<ViewOrders />} />
+          <Route path="/admin/*" element={<AdminPanel />} />
+          
           <Route path="*" element={<NotFound />} />
           
         </Routes>

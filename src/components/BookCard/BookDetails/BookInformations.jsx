@@ -21,7 +21,7 @@ const BookInformations = ({bookInfo}) => {
         <div className='w-full flex flex-col md:h-[579px] relative top-[139px] md:top-[165px]'>
           
           <PriceComponent price={bookInfo.average_rating} />
-          <ButtonComponent />
+          <ButtonComponent book={bookInfo}/>
           <DescriptionComponent description={bookInfo.description}/>
           <div className='w-full flex justify-center items-center'>
             Description
