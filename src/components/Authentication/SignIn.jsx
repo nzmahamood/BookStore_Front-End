@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, {useEffect, useState} from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { storeTokenReducer } from '../../contexts/store/tokenSlice'
 import AxiosRequest from '../../utils/axios'
 import SnackBar from '../snackbar/SnackBar'
@@ -12,12 +12,28 @@ const SignIn = () => {
     const ms_logo = require('../../assets/ms-logo.png')
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const location = useLocation()
 
     //hooks for forms
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [validateFormError, setValidateFormError] = useState({})
     const [signInError, setSignInErro] = useState(false)
+
+    const redirectNavigation = () =>{
+        if(location?.state?.from === 'feed'){
+            navigate('/feed')
+        }
+        else{
+            navigate('/')
+        }
+    }
+
+    useEffect(()=>{
+        if(location?.state?.from === 'feed'){
+            console.log('from feed')
+        }
+    },[])
 
     useEffect(()=>{
         if(signInError){
@@ -46,7 +62,7 @@ const SignIn = () => {
                 const signinResponse = await AxiosRequest(`${BASE_URL_NET}/users/signin`, formValues, 'POST')
                 console.log(signinResponse)
                 dispatch(storeTokenReducer({access: signinResponse.access, refresh: signinResponse.refresh}))
-                navigate('/')
+                redirectNavigation()
 
             } catch (error) {
                 setSignInErro(true)

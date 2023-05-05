@@ -32,6 +32,7 @@ import ViewProfile from "./components/Profile/ViewProfile";
 import ViewOrders from "./components/Profile/ViewOrders";
 import AdminPanel from "./components/AdminPanel/AdminPanel";
 import SocialFeed from "./components/SocialFeed/SocialFeed";
+import AddPost from "./components/SocialFeed/AddPost";
 
 
 function App() {
@@ -104,6 +105,7 @@ function App() {
           <Route path="/profile" element={<ViewProfile />} />
           <Route path="/orders" element={<ViewOrders />} />
           <Route path="/feed" element={<SocialFeed />} />
+          <Route path="/feed/add-post" element={<AddPost />} />
           <Route path="/admin/*" element={<AdminPanel />} />
           
           <Route path="*" element={<NotFound />} />
