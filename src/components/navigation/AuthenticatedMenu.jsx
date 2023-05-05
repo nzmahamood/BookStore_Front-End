@@ -1,8 +1,21 @@
 import React, {Fragment} from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import AxiosRequest from '../../utils/axios'
+import { BASE_URL_NET } from '../../utils/domains'
+import { signoutReducer } from '../../contexts/store/tokenSlice'
+import { showMessage } from '../../contexts/store/SnackSlice'
 
 const AuthenticatedMenu = () => {
+  const dispatch = useDispatch()
+    const {refresh_token} = useSelector(state => state.token)
+  const handleSignout = async() => {
+            dispatch(signoutReducer())
+            const response = await AxiosRequest(`${BASE_URL_NET}/users/signout`, {refresh: refresh_token}, 'POST')
+            console.log(response)
+            dispatch(showMessage({message: "User Signed Out Successfully", severity: 'success'}))
+  }
   return (
     <Menu as="div" className="relative inline-block text-left">
         <Menu.Button className='flex items-center justify-center'>
@@ -49,6 +62,19 @@ const AuthenticatedMenu = () => {
                   >
                     Track Orders
                   </Link>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    onClick={handleSignout}
+                    className={`${
+                      active ? 'bg-teal-700 font-inter font-semibold text-white' : 'text-gray-900'
+                    } group flex font-inter font-regular w-full items-center rounded-md px-2 py-2 text-sm`}
+                    name='signup'
+                  >
+                    Sign Out
+                  </button>
                 )}
               </Menu.Item>
             </div>

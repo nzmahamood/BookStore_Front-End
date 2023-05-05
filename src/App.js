@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Main from "./components/Main";
-import { BrowserRouter as Router, Routes, Route, Outlet, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Outlet, useLocation, useNavigate } from "react-router-dom";
 import SignIn from "./components/Authentication/SignIn";
 import ForgotPass from "./components/Authentication/ForgotPass";
 import SignUp from "./components/Authentication/SignUp";
@@ -31,6 +31,7 @@ import BookCategories from "./components/Home/categories/BookCategories";
 import ViewProfile from "./components/Profile/ViewProfile";
 import ViewOrders from "./components/Profile/ViewOrders";
 import AdminPanel from "./components/AdminPanel/AdminPanel";
+import SocialFeed from "./components/SocialFeed/SocialFeed";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
   const {access_token} = useSelector((state) => state.token)
   const basket = useSelector(state => state.basket)
   const {pathname} = useLocation()
+
   
   const location = useLocation();
   const [showNav, setShowNav] = useState(true);
@@ -101,6 +103,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/profile" element={<ViewProfile />} />
           <Route path="/orders" element={<ViewOrders />} />
+          <Route path="/feed" element={<SocialFeed />} />
           <Route path="/admin/*" element={<AdminPanel />} />
           
           <Route path="*" element={<NotFound />} />

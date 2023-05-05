@@ -19,6 +19,10 @@ function Main() {
     const dispatch = useDispatch()
     const {refresh_token} = useSelector(state => state.token)
 
+    useEffect(()=>{
+        navigate('/home')
+    },[])
+
     const handleButtonClick = async (e) => {
         if(e.target.name === 'signin'){
             navigate('/sign-in')
