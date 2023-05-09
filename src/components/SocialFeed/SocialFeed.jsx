@@ -25,7 +25,9 @@ const SocialFeed = () => {
     
 
     useEffect(()=>{
-        if(access_token === null){
+        
+        if(!access_token){
+            console.log('tkn', access_token)
             navigate('/sign-in', {state: {from: 'feed'}})
         }
         axios.get(`${BASE_URL_NET}/socialfeed/api/fetch-feed/`, {

@@ -204,6 +204,8 @@ import {
           shipping_cost: 0,
           total_price: parseFloat(elem.quantity) * parseFloat(elem.unit_price),
         });
+
+        console.log('order_itemss', order_items)
       });
       axios
         .post(

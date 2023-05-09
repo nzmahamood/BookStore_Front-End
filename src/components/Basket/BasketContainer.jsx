@@ -52,7 +52,7 @@ const BasketContainer = () => {
 
     return total.toFixed(2);
   };
-  let discount = 10;
+  let discount = 0;
   const grandTotal = (subTotal() - discount).toFixed(2);
   return (
     <Container maxWidth="lg" className="relative top-5 flex flex-col">

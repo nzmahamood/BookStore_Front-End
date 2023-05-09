@@ -4,11 +4,48 @@ import { Comment, ThumbUp } from '@mui/icons-material'
 import React, { useState } from 'react'
 import { BASE_URL_NET } from '../../utils/domains'
 import PostComment from './PostComment'
+import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { showMessage } from '../../contexts/store/SnackSlice'
+import { error } from 'highcharts'
+import { decodeToken } from '../../utils/utils'
 
 const FeedPost = ({data}) => {
+    const {access_token} = useSelector((state) => state.token)
+    const {name} = decodeToken(access_token)
     const [openComment, setOpenComment] = useState(false)
+    const [liked, setLiked] = useState(data?.likes?.some(like => like.user === name))
+    const [likeCount, setLikeCount] = useState(data?.likes?.length)
+    
+    const dispatch = useDispatch()
+   
 
     console.log('likes', data?.likes?.length)
+
+    const handleLikePost = (id) =>{
+        console.log('tkn', access_token)
+        console.log(id)
+        axios.post(`${BASE_URL_NET}/socialfeed/api/like-post/${id}/`, {}, {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${access_token}`,
+            },
+          })
+          .then((response) => {
+            const message = response.data? response.data.message : "Post Liked" 
+            dispatch(showMessage({message: message, severity: "success"}))
+            console.log(response.data)
+            setLiked(!liked)
+            const count = response?.data?.like ? response?.data?.like.length : 0
+            setLikeCount(count)
+          })
+          .catch(error => {
+            console.log('like-error', error)
+            const errorMessage = error.response ? error.response.data.message : 'Unknown error'
+            dispatch(showMessage({message: errorMessage, severity: "error"}))
+            console.log(errorMessage)
+          })
+    }
 
     const handleOpenComment = () =>{
         console.log('clicked')
@@ -33,10 +70,10 @@ const FeedPost = ({data}) => {
             {/* post toolbar */}
             <Box className='w-full flex h-9 border-b border-t border-[silver]'>
                 <div className='w-[50%] border-r border-[silver] flex justify-center items-center'>
-                <IconButton aria-label="Like" color="" onClick={() => {console.log('clciked')}}>
+                <IconButton aria-label="Like" color={liked ? 'primary': ''} onClick={() => {handleLikePost(data?.id)}}>
                     <ThumbUp />
                 </IconButton>
-                <Typography variant='body'>{data?.likes?.length}</Typography>
+                <Typography variant='body'>{likeCount}</Typography>
                 </div>
                 <div className='w-[50%] flex justify-center' onClick={() => {setOpenComment(!openComment)}}>
                 <IconButton aria-label="Comment" color={openComment ? 'primary': ''}>

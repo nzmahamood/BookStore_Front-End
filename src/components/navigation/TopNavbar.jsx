@@ -1,12 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { HeartIcon } from "@heroicons/react/24/outline"
 import AccountMenu from './AccountMenu'
 import { useSelector } from 'react-redux'
 import AuthenticatedMenu from './AuthenticatedMenu'
+import WishList from '../Wishlist/WishList'
+import { useLocation } from 'react-router-dom'
 const TopNavbar = () => {
   const [account, setAccount] = useState(false)
+  let [isOpen, setIsOpen] = useState(false)
   const {access_token} = useSelector((state) => state.token)
+  const location = useLocation()
 
+  const handleWishListOpen = () => {
+    setIsOpen(true)
+  }
+
+  const handleWishListClose = () => {
+    setIsOpen(false)
+  }
+
+  const handleWishListToggle = () => {
+    setIsOpen(!isOpen)
+  }
+
+  useEffect(() => {
+    if(location?.state?.open){
+      setIsOpen(true)
+    }
+  },[location])
 
   const handleAcClick = () =>{
     setAccount(true)
@@ -27,7 +48,8 @@ const TopNavbar = () => {
           </div>
           <span className='text-lg text-slate-900 px-2'>|</span>
           <div className='flex items-center justify-center'>
-            <HeartIcon className='w-4 text-teal-700 hover:cursor-pointer'/>
+            <HeartIcon onClick={() => {handleWishListToggle()}} className='w-4 text-teal-700 hover:cursor-pointer'/>
+            <WishList isOpen={isOpen} onClose={handleWishListToggle} />
           </div>
         </div>
     </div>

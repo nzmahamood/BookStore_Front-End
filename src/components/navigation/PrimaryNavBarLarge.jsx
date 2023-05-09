@@ -42,6 +42,7 @@ const PrimaryNavBarLarge = ({basketCount}) => {
                 <rect className='fill-slate-50' width="32" height="128" x="360" y="304" fill="#f8fafc" class="ci-primary"/>
                 <path className='fill-slate-50' fill="#f8fafc" d="M473.681,168,394.062,16H357.938l79.619,152H74.443L154.062,16H117.938L38.319,168H16V279.468L58.856,496H453.117L496,281.584V168ZM464,278.416,426.883,464H85.144L48,276.332V272H464ZM464,240H48V200H464Z" class="ci-primary"/>
             </svg> */}
+            <Link to={'/feed'}><span className='text-slate-50 font-inter font-semibold text-sm mr-3'>Social Feed</span></Link>
             <Badge badgeContent={basketCount} color='primary'>
 
                 <ShoppingBasketOutlinedIcon className='text-slate-50 text-[32px] hover:cursor-pointer' onClick={()=>navigate('/basket')}/>

@@ -25,7 +25,7 @@ const StripeElement = ({ formRef, orderData,handlePaymentSuccess }) => {
     axios
       .post(
         `${BASE_URL_NET}/payments/api/create_intent/`,
-        { amount: orderData?.amount || 1099 },
+        { amount: orderData ? orderData : 1099 },
         {
           headers: {
             "Content-Type": "application/json",

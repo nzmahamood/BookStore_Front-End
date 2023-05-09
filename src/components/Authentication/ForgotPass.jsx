@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import SnackBar from '../snackbar/SnackBar'
 import { validateConfirmPassword, validateEmail, validatePassword, validateSixCode } from './form_validations'
+import { BASE_URL_NET } from '../../utils/domains'
+import { useDispatch } from 'react-redux'
+import { showMessage } from '../../contexts/store/SnackSlice'
 
 const ForgotPass = () => {
     document.title = "Forgot Password || BookStore"
@@ -16,6 +19,8 @@ const ForgotPass = () => {
     const [confirmpass, setConfirmpass] = useState("")
     const [validateFormError, setValidateFormError] = useState({})
     const [error, setError] = useState(false)
+
+    const dispatch = useDispatch()
 
     useEffect(()=>{
         if(error){
@@ -47,8 +52,15 @@ const ForgotPass = () => {
 
         if(Object.values(formerrors).every(val => val === '')){
             const formValues = {email}
-            postData('url', formValues)
-            setFormState('code')
+            axios.post(`${BASE_URL_NET}/users/send-email/`, formValues)
+            .then(response => {
+                console.log(response)
+                setFormState('code')
+            })
+            .catch(error => {
+                console.log(error)
+            })
+            
         }
 
     }
@@ -64,8 +76,20 @@ const ForgotPass = () => {
 
         if(Object.values(formerrors).every(val => val === '')){
             const formValues = {email, code}
-            postData('url', formValues)
-            setFormState('reset')
+            axios.post(`${BASE_URL_NET}/users/verify-code/`, formValues)
+            .then(response => {
+                console.log(response)
+                if(response.status === 200){
+                    setFormState('reset')
+                }
+            })
+            .catch(error => {
+                console.log(error)
+
+                dispatch(showMessage({message: error.response?.data?.message, severity: 'error'}))
+
+            })
+            
         }
     }
 
@@ -82,9 +106,21 @@ const ForgotPass = () => {
 
         if(Object.values(formerrors).every(val => val === '')){
             const formValues = {email, password}
-            postData('url', formValues)
+            axios.post(`${BASE_URL_NET}/users/reset-password/`, formValues)
+            .then(response => {
+                console.log(response)
+                if(response.status === 200){
+                    navigate('/')
+                }
+            })
+            .catch(error => {
+                console.log(error)
 
-            navigate('/')
+                dispatch(showMessage({message: error.response?.data?.message, severity: 'error'}))
+
+            })
+
+            
         }
     }
     useEffect(() => {

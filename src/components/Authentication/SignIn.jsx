@@ -24,6 +24,9 @@ const SignIn = () => {
         if(location?.state?.from === 'feed'){
             navigate('/feed')
         }
+        else if(location?.state?.from === 'wishlist'){
+            navigate('/home', {state: {open: true}})
+        }
         else{
             navigate('/')
         }

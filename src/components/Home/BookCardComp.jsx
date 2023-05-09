@@ -7,6 +7,8 @@ import { addItemToBasket, addToBasketAsync } from '../../contexts/store/BasketSl
 import MuiSnackBar from '../snackbar/MuiSnackBar'
 import { showMessage } from '../../contexts/store/SnackSlice'
 import { add_to_cart } from '../../contexts/store/basketapi'
+import axios from 'axios'
+import { BASE_URL_NET } from '../../utils/domains'
 
 const BookCardComp = ({bookDetails}) => {
     const book = require('../../utils/book.jpg')
@@ -18,6 +20,31 @@ const BookCardComp = ({bookDetails}) => {
     const handleCardClick = (id) =>{
         console.log('id', id)
         navigate(`/book-detail/${id}`)
+    }
+
+    const handleAddToWishList = (id) =>{
+        console.log(id)
+        try{
+            if(access_token){
+                axios.post(`${BASE_URL_NET}/order/api/wishlist/`, {"book_id": id}, {
+                    headers:{
+                        "Content-Type": "application/json",
+                         "Authorization": `Bearer ${access_token}`
+                      }
+                })
+                .then((response) => {
+                    console.log(response.data)
+                    dispatch(showMessage({message: `${bookDetails.title} added to WishList`, severity:'success'}))
+                })
+                .catch((error) => {
+                    console.log(error)
+                    const errorMessage = error?.response?.data ? error.response.data.message : "Unknown Error Occured"
+                    dispatch(showMessage({message: errorMessage, severity: 'error'}))
+                })
+            }
+        }catch(error){
+            console.log(error)
+        }
     }
 
     const handleClose = (event, reason) => {
@@ -72,7 +99,7 @@ const BookCardComp = ({bookDetails}) => {
             </div>
             {/* buttons */}
             <div className='w-full h-[46px] flex justify-between items-end relative bottom-0 px-1'>
-                <button className='p-1 w-9 h-8 text-slate-600 bg-slate-300 rounded-md flex items-center justify-center'>
+                <button className='p-1 w-9 h-8 text-slate-600 bg-slate-300 rounded-md flex items-center justify-center' onClick={(e) => {e.preventDefault(); handleAddToWishList(bookDetails.id)}}>
                     <HeartIcon className='w-6'/>
                 </button>
                 <button className='p-1 w-9 h-8 bg-teal-700 text-white rounded-md flex items-center justify-center' onClick={(e)=> {e.preventDefault(); handleAddToBasket(bookDetails)}}><Basket height='h-5'></Basket></button>
