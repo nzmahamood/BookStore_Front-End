@@ -3,12 +3,15 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { BASE_URL_NET } from '../../../utils/domains'
 import { useDispatch, useSelector } from 'react-redux'
+import { showMessage } from '../../../contexts/store/SnackSlice'
+import { useNavigate } from 'react-router-dom'
 
 const AdminBooks = () => {
 
     const {access_token} = useSelector((state) => state.token)
 
     const dispatch = useDispatch()
+    
 
     const [formData, setFormData] = useState({
         isbn10: '',
@@ -39,10 +42,13 @@ const AdminBooks = () => {
           })
           .then(response => {
             console.log(response)
+            dispatch(showMessage({message: 'Book added successfully', severity: 'success'}))
+            window.location.reload()
             
           })
           .catch(error => {
             console.log(error)
+            dispatch(showMessage({message: 'Cannot add book', severity: 'error'}))
           })
     }
   return (

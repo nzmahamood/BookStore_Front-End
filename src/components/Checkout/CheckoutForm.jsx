@@ -34,14 +34,14 @@ const CheckoutForm = ({ formRef, handlePaymentSuccess }) => {
 
     if (error) {
       // This point will only be reached if there is an immediate error when
-      // confirming the payment. Show error to your customer (for example, payment
+      // confirming the payment. Show error to customer (for example, payment
       // details incomplete)
       setErrorMessage(error.message);
     } else {
       console.log("payment success", payment_method);
       handlePaymentSuccess(payment_method);
-      // Your customer will be redirected to your `return_url`. For some payment
-      // methods like iDEAL, your customer will be redirected to an intermediate
+      // customer will be redirected to `return_url`. For some payment
+      // methods like iDEAL, customer will be redirected to an intermediate
       // site first to authorize the payment, then redirected to the `return_url`.
     }
   };

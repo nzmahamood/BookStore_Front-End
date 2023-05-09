@@ -27,6 +27,9 @@ const SignIn = () => {
         else if(location?.state?.from === 'wishlist'){
             navigate('/home', {state: {open: true}})
         }
+        if(location?.state?.from === 'basket'){
+            navigate('/basket')
+        }
         else{
             navigate('/')
         }

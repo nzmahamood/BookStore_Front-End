@@ -7,14 +7,23 @@ import axios from "axios";
 import { BASE_URL_NET } from "../../utils/domains";
 import { fetchBasketItems } from "../../contexts/store/BasketSlice";
 import EmptyBasket from "./EmptyBasket";
+import { useNavigate } from "react-router-dom";
 
 const BasketContainer = () => {
   const dispatch = useDispatch();
   const { access_token } = useSelector((state) => state.token);
   const items = useSelector((state) => state.basket);
   const {basket_id} = useSelector((state) => state.basket)
+  const navigate = useNavigate()
   console.log('basket_id', basket_id)
   // const [items, setItems] = useState([])
+
+
+  useEffect(()=>{
+    if(!access_token){
+      navigate('/sign-in', {state: {from: 'basket'}})
+    }
+  },[])
 
   useEffect(() => {
     axios

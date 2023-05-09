@@ -151,7 +151,7 @@ const basketSlice = createSlice({
         .addCase(addToBasketAsync.fulfilled, (state, action) => {
           const item = action.payload
 
-          const index = state.books.findIndex((stateItem) => stateItem.book.id === item.book.id)
+          const index = state.books?.findIndex((stateItem) => stateItem.book.id === item.book.id)
           console.log('index', index)
           if (index !== -1) {
             state.books[index].quantity += 1;

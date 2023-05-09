@@ -4,6 +4,8 @@ import { data } from '../../utils/books'
 import BookCardComp from './BookCardComp'
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import axios from 'axios';
+import { BASE_URL_NET } from '../../utils/domains';
 
 
 
@@ -24,7 +26,9 @@ function NextArrow(props) {
     />)
 }
 
-const BookSlider = ({book}) => {
+const BookSlider = ({book, code}) => {
+
+
     const settings = {
         infinite: false,
         speed: 900,
@@ -89,7 +93,7 @@ const BookSlider = ({book}) => {
         }
   return (
     <Slider {...settings} className='flex justify-center gap-4 ml-7 md:ml-5'>
-        {book.map((books) => <BookCardComp bookDetails={books}/>)}
+        {book.map((books) => <BookCardComp bookDetails={books} code={code}/>)}
     </Slider>
   )
 }

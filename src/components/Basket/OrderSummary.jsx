@@ -15,9 +15,12 @@ const OrderSummary = ({subTotal, promo, grandTotal}) => {
     const [code, setCode] = useState('')
     const {access_token} = useSelector((state) => state.token)
     const [percentage, setPercentage] = useState(0)
+    const [grand, setGrand] = useState(subTotal)
+
+    let last_price = (subTotal - percentage).toFixed(2)
 
     const handleCheckout = () => {
-        dispatch(grandTotalReducer({total: grandTotal}))
+        dispatch(grandTotalReducer({total: grand}))
         navigate('/checkout', {state: {"percentage": percentage}})
     }
 
@@ -32,6 +35,10 @@ const OrderSummary = ({subTotal, promo, grandTotal}) => {
             console.log(response)
             setPercentage(response.data?.percentage_discount)
             dispatch(showMessage({message: `${response.data?.percentage_discount} % Discount Applied`, severity: 'success'}))
+
+            let total = ((subTotal/100) * 10).toFixed(2)
+            setGrand((subTotal - total).toFixed(2))
+            console.log('last-price', total)
           })
           .catch(error => {
             console.log(error)
@@ -57,12 +64,12 @@ const OrderSummary = ({subTotal, promo, grandTotal}) => {
                 <Typography variant='h5' className='text-sm font-semibold text-slate-900 tracking-wider font-inter'>Promo Code</Typography>
                 <TextField variant='outlined' value={code} onChange={(e) => {setCode(e.target.value)}} className='text-sm font-semibold text-teal-900 tracking-wider font-inter w-[130px]' size='small'/>
                 <IconButton onClick={handlePromoCode}>
-                    <Verified />
+                    <Verified className={percentage === 0 ? 'text-red-600': 'text-teal-700'}/>
                 </IconButton>
             </div>
             <div className='flex justify-between py-3 border-b border-[silver]'>
                 <Typography variant='h5' className='text-sm font-semibold text-slate-900 tracking-wider font-inter'>Grand Total</Typography>
-                <Typography variant='h5' className='text-sm font-semibold text-teal-900 tracking-wider font-inter'>${grandTotal}</Typography>
+                <Typography variant='h5' className='text-sm font-semibold text-teal-900 tracking-wider font-inter'>${grand}</Typography>
             </div>
             <div className='flex flex-col gap-2 mt-2 sticky bottom-3 md:static'>
                 <Button variant='contained' className='bg-gradient-to-r from-teal-600 to-teal-900 font-inter text-[16px] capitalize tracking-wider' onClick={handleCheckout} size='medium'>Proceed To Checkout</Button>

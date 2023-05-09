@@ -4,7 +4,7 @@ import BookCardComp from './BookCardComp'
 import BookSlider from './BookSlider'
 import { Link } from 'react-router-dom'
 
-const BookContainer = ({categoryName, books}) => {
+const BookContainer = ({categoryName, books, code}) => {
   return (
     <div className='relative w-full h-[500px] flex flex-col items-center'>
         {/* header (title and view more button) */}
@@ -19,7 +19,7 @@ const BookContainer = ({categoryName, books}) => {
         {/* BookContainer */}
         <div className='w-[92%] md:w-[90%] h-[325px] md:h-[375px] relative top-[2px]'>
             {/* books are loaded from API through looping */}
-            <BookSlider book={books}/>
+            <BookSlider book={books} code={code}/>
         </div>
     </div>
   )

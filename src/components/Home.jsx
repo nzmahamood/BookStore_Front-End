@@ -6,6 +6,7 @@ import FooterMobile from './navigation/FooterMobile'
 import axios from 'axios'
 import { BASE_URL_NET } from '../utils/domains'
 const Home = () => {
+  const [code, setCode] = useState('')
   const [books, setBooks] = useState({
     fiction_books: [],
     non_fiction_books: [],
@@ -14,7 +15,7 @@ const Home = () => {
 
   const categories = [
     { name: 'Recommended Books For You', books: books.popular_books },
-    { name: 'Best Non-Fiction Books', books: books.non_fiction_books },
+    // { name: 'Best Non-Fiction Books', books: books.non_fiction_books },
     { name: 'Best Fiction Books', books: books.fiction_books },
   ];
 
@@ -28,6 +29,18 @@ const Home = () => {
       });
   }, []);
 
+
+  useEffect(()=>{
+    axios.get(`${BASE_URL_NET}/books/api/retrieve-promo-code/`)
+      .then(response => {
+        console.log(response.data);
+        setCode(response.data?.code)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },[])
+
   return (
     <>
       <AdBanner />
@@ -37,6 +50,7 @@ const Home = () => {
             key={category.name}
             categoryName={category.name}
             books={category.books}
+            code={code}
           />
         ))}
       </main>

@@ -1,11 +1,13 @@
-import { Chip, Grid, Paper, Typography } from '@mui/material'
+import { Chip, Container, Grid, Paper, Typography } from '@mui/material'
 import React from 'react'
 import { useLocation } from 'react-router-dom'
+import OrderItems from './OrderItems'
 
 const ViewOrder = () => {
     const {state} = useLocation()
     const orderDetails = state.order
   return (
+    <Container maxWidth='lg'>
     <Grid container spacing={2}>
         <Grid item xs={7}>
             <Paper className='w-full p-3'>
@@ -54,6 +56,8 @@ const ViewOrder = () => {
             </Paper>
         </Grid>
     </Grid>
+    <OrderItems items={orderDetails?.order_items}/>
+    </Container>
   )
 }
 

@@ -10,7 +10,7 @@ import { add_to_cart } from '../../contexts/store/basketapi'
 import axios from 'axios'
 import { BASE_URL_NET } from '../../utils/domains'
 
-const BookCardComp = ({bookDetails}) => {
+const BookCardComp = ({bookDetails, code}) => {
     const book = require('../../utils/book.jpg')
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -78,8 +78,8 @@ const BookCardComp = ({bookDetails}) => {
             
             <img src={bookDetails.thumbnail} alt='book_cover' className='w-[128px] h-[195px] md:w-[150px] md:h-[235px] rounded-sm'/>
             {/* div for promotion */}
-            <div className='w-[75%] h-3 md:h-5 bg-gradient-to-r from-orange-400 to-orange-600 absolute top-[-2.5%] rounded-bl-md rounded-tr-md flex items-center justify-center'>
-                <span className='text-[9px] md:text-[11px] font-inter text-slate-50'>Buy 2 Get 1 Free</span>
+            <div className={code ? 'w-[75%] h-3 md:h-5 bg-gradient-to-r from-orange-400 to-orange-600 absolute top-[-2.5%] rounded-bl-md rounded-tr-md flex items-center justify-center': 'hidden'}>
+                <span className='text-[9px] md:text-[11px] font-inter text-slate-50'>{code ? code: ''}</span>
             </div>
 
         </div>
