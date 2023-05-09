@@ -4,7 +4,7 @@ import React from 'react'
 const OrderStatus = () => {
     let status = true
     const message = {
-        success: `Congratulations! Your order has been successfully placed. An invoice has been sent to your email at [customer's email]. You can now sit back and relax while we process and prepare your order for shipment. In the meantime, you can track the status of your order in the profile section of your account. Thank you for choosing our service, and we look forward to serving you again in the future!`,
+        success: `Congratulations! Your order has been successfully placed. An invoice has been sent to your email at [email that you registered with us]. You can now sit back and relax while we process and prepare your order for shipment. In the meantime, you can track the status of your order in the profile section of your account. Thank you for choosing our service, and we look forward to serving you again in the future!`,
         error: `Oops! We're sorry, but we encountered an error while processing your order. Please try again later or contact our customer support for assistance. We apologize for any inconvenience caused. Thank you for your understanding.`
     }
   return (

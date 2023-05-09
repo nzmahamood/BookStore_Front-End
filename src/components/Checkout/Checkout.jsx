@@ -19,6 +19,7 @@ import {
   import { useRef } from "react";
   import { BASE_URL_NET } from "../../utils/domains";
   import axios from "axios";
+import { useNavigate } from "react-router-dom";
   
   const Checkout = () => {
     const { books } = useSelector((state) => state.basket);
@@ -33,6 +34,7 @@ import {
     const [billingErrors, SetBillingErrors] = useState({});
     const total = useSelector((state) => state.total.total);
     const formRef = useRef(null);
+    const navigate = useNavigate()
     const handleShippingChange = (event) => {
       const { name, value } = event.target;
       setShippingData({ ...shippingData, [name]: value });
@@ -156,6 +158,8 @@ import {
           break;
         case 3:
           // status
+          
+          navigate('/orders')
           break;
   
         default:

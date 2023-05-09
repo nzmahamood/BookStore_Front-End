@@ -5,12 +5,14 @@ import Orders from './Orders/Orders'
 import Dashboard from './Dashboard/Dashboard'
 import BreadComponent from './BreadComponent'
 import ViewOrder from './Orders/ViewOrder'
+import AdminBooks from './Books/AdminBooks'
 
 
 const AdminContent = () => {
   const routes = [
     {path: '/orders', element: <Orders />, name: 'Orders'},
     {path: '/orders/view/:id', element: <ViewOrder />, name: 'Orders'},
+    {path: '/books', element: <AdminBooks />, name: 'Books'},
     {path: '/', element: <Dashboard />, name: 'Dashboard'},
     {path: '*', element: <Dashboard />, name: 'Dashboard'},
   ]

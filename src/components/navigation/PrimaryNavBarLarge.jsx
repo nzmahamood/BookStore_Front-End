@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import { Link, useNavigate } from 'react-router-dom'
 import SearchBox from './SearchBox'
 import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined';
 import Badge from '@mui/material/Badge';
+import axios from 'axios';
+import { BASE_URL_NET } from '../../utils/domains';
+import { useSelector } from 'react-redux';
 
 
 const PrimaryNavBarLarge = ({basketCount}) => {
+    const {access_token} = useSelector((state) => state.token)
+    const [isAdmin, setIsAdmin] = useState(false)
     const [query, setQuery] = useState('')
     const navigate = useNavigate({})
     const handleSearch = (e) => {
@@ -19,6 +24,22 @@ const PrimaryNavBarLarge = ({basketCount}) => {
     const handleSearchChange = (e) => {
         setQuery(e.target.value)
     }
+
+    useEffect(()=>{
+        axios.get(`${BASE_URL_NET}/admin-api/api/admin-status/`,  {
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${access_token}`
+            }
+          })
+          .then(response => {
+            console.log(response)
+            setIsAdmin(response.data?.is_admin)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+    },[])
   return (
     <nav className='relative hidden md:flex bg-gradient-to-r from-teal-600 to-teal-900 h-[72px] w-full border-b border-slate-600'>
         {/* logo box */}
@@ -42,7 +63,7 @@ const PrimaryNavBarLarge = ({basketCount}) => {
                 <rect className='fill-slate-50' width="32" height="128" x="360" y="304" fill="#f8fafc" class="ci-primary"/>
                 <path className='fill-slate-50' fill="#f8fafc" d="M473.681,168,394.062,16H357.938l79.619,152H74.443L154.062,16H117.938L38.319,168H16V279.468L58.856,496H453.117L496,281.584V168ZM464,278.416,426.883,464H85.144L48,276.332V272H464ZM464,240H48V200H464Z" class="ci-primary"/>
             </svg> */}
-            <Link to={'/feed'}><span className='text-slate-50 font-inter font-semibold text-sm mr-3'>Social Feed</span></Link>
+            {isAdmin ? <Link to={'/admin'}><span className='text-slate-50 font-inter font-semibold text-sm mr-3'>Admin Panel</span></Link>: <Link to={'/feed'}><span className='text-slate-50 font-inter font-semibold text-sm mr-3'>Social Feed</span></Link>}
             <Badge badgeContent={basketCount} color='primary'>
 
                 <ShoppingBasketOutlinedIcon className='text-slate-50 text-[32px] hover:cursor-pointer' onClick={()=>navigate('/basket')}/>
