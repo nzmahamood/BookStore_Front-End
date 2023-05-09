@@ -8,7 +8,7 @@ import AccountMenu from '../navigation/AccountMenu'
 
 const AdminNavbar = () => {
   const {access_token} = useSelector((state) => state.token)
-    const {name} = decodeToken(access_token)
+    const {name} = decodeToken(access_token) ||{}
     
 
     function firstLetter (){

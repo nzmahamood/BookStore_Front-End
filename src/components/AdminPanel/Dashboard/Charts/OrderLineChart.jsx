@@ -1,177 +1,56 @@
-import React from "react";
-import Highcharts from "highcharts/highstock";
-import HighchartsReact from "highcharts-react-official";
-const OrderLineChart = () => {
-  const options = {
-    credits: { enabled: false },
-    chart: {
-      type: "area",
-      height: 150,
-      width: 300,
-    },
+import HighchartsReact from 'highcharts-react-official';
+import Highcharts from 'highcharts';
 
+const data = [
+  { month: 'Jan', completedOrders: 1200, pendingOrders: 300 },
+  { month: 'Feb', completedOrders: 1500, pendingOrders: 350 },
+  { month: 'Mar', completedOrders: 1800, pendingOrders: 400 },
+  { month: 'Apr', completedOrders: 2000, pendingOrders: 450 },
+  { month: 'May', completedOrders: 2200, pendingOrders: 500 },
+  { month: 'Jun', completedOrders: 2400, pendingOrders: 550 },
+];
+
+const options = {
+  credits: { enabled: false },
+  chart: {
+    type: 'column',
+    height: 150,
+    width: 300,
+  },
+  title: {
+    text: ''
+  },
+  xAxis: {
+    categories: data.map(item => item.month)
+  },
+  yAxis: {
     title: {
-      text: "",
-    },
-    subtitle: {
-      text: "",
-    },
-    xAxis: {
-      allowDecimals: false,
-      labels: {
-        formatter: function () {
-          return this.value; // clean, unformatted number for year
-        },
-      },
-      accessibility: {
-        rangeDescription: "Range: 1940 to 2017.",
-      },
-    },
-    yAxis: {
-      title: {
-        text: "Orders",
-      },
-      labels: {
-        formatter: function () {
-          return this.value / 1000 + "k";
-        },
-      },
-    },
-    tooltip: {
-      pointFormat: "{series.name}",
-    },
-    plotOptions: {
-      area: {
-        pointStart: 1940,
-        marker: {
-          enabled: false,
-          symbol: "circle",
-          radius: 2,
-          states: {
-            hover: {
-              enabled: true,
-            },
-          },
-        },
-      },
-    },
-    series: [
-      {
-        name: "pending order",
-        data: [
-          null,
-          null,
-          null,
-          null,
-          null,
-          2,
-          9,
-          13,
-          50,
-          170,
-          299,
-          438,
-          841,
-          1169,
-          1703,
-          2422,
-          3692,
-          5543,
-          7345,
-          12298,
-          18638,
-          22229,
-          25540,
-          28133,
-          29463,
-          31139,
-          31175,
-          31255,
-          29561,
-          27552,
-          26008,
-          25830,
-          26516,
-          27835,
-          28537,
-          27519,
-          25914,
-          25542,
-          24418,
-          24138,
-          24104,
-          23208,
-          22886,
-          23305,
-          23459,
-          23368,
-          23317,
-          23575,
-          23205,
-          22217,
-          21392,
-          19008,
-          13708,
-          11511,
-          10979,
-          10904,
-          11011,
-          10903,
-          10732,
-          10685,
-          10577,
-          10526,
-          10457,
-          10027,
-          8570,
-          8360,
-          7853,
-          5709,
-          5273,
-          5113,
-          5066,
-          4897,
-          4881,
-          4804,
-          4717,
-          4571,
-          4018,
-          3822,
-          3785,
-          3805,
-          3750,
-          3708,
-          3708,
-        ],
-      },
-      {
-        name: "completed order",
-        data: [
-          2,
-          9,
-          13,
-          50,
-          170,
-          299,
-          438,
-          841,
-          0,
-          1703,
-          2422,
-          3692,
-          5543,
-          7345,
-          298,
-          11011,
-          10903,
-          10732,
-          10685,
-          10577,
-          10526,
-        ],
-      },
-    ],
-  };
-  return <HighchartsReact highcharts={Highcharts} options={options} />;
+      text: 'Number of Orders'
+    }
+  },
+  legend: {
+    enabled: true
+  },
+  plotOptions: {
+    column: {
+      stacking: 'normal'
+    }
+  },
+  series: [{
+    name: 'Pending Orders',
+    data: data.map(item => item.pendingOrders)
+  }, {
+    name: 'Completed Orders',
+    data: data.map(item => item.completedOrders)
+  }]
 };
-export default OrderLineChart;
+
+const OrdersByMonthChart = () => {
+  return (
+    <div>
+      <HighchartsReact highcharts={Highcharts} options={options} />
+    </div>
+  );
+};
+
+export default OrdersByMonthChart;

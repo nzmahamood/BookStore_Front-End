@@ -20,7 +20,7 @@ const DashboardCenter = () => {
             <Paper className='flex flex-col h-[335px] p-3' elevation={2}>
                 {/* card title */}
                 <div className='w-full'>
-                    <Typography variant='h6' className='text-slate-900 font-medium tracking-wider'>Most Popular Books</Typography>
+                    {/* <Typography variant='h6' className='text-slate-900 font-medium tracking-wider'>Most Popular Books</Typography> */}
                 </div>
                 <PopularBooksChart />
             </Paper>
