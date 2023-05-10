@@ -2,10 +2,14 @@ import { Chip, Container, Grid, Paper, Typography } from '@mui/material'
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import OrderItems from './OrderItems'
+import { useSelector } from 'react-redux'
 
 const ViewOrder = () => {
     const {state} = useLocation()
     const orderDetails = state.order
+    const {access_token} = useSelector((state) => state.token)
+
+    let label = orderDetails?.is_shipped ? 'Shipped' : 'Pending'
   return (
     <Container maxWidth='lg'>
     <Grid container spacing={2}>
@@ -13,7 +17,7 @@ const ViewOrder = () => {
             <Paper className='w-full p-3'>
                 <div className='w-full flex justify-between'>
                     <Typography variant='h6' className='text-sm font-semibold tracking-wider'>Order No: <span className='text-blue-700'>#{orderDetails.order_number}</span></Typography>
-                    <Chip label='Pending' className='bg-orange-700 text-white' />
+                    <Chip label={label} className='bg-orange-700 text-white' />
                 </div>
                 <div className='w-full flex justify-between py-3'>
                     <div className='gap-1 flex flex-col'>
@@ -56,7 +60,7 @@ const ViewOrder = () => {
             </Paper>
         </Grid>
     </Grid>
-    <OrderItems items={orderDetails?.order_items}/>
+    <OrderItems items={orderDetails?.order_items} order={orderDetails?.order_number} token={access_token}/>
     </Container>
   )
 }

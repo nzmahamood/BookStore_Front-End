@@ -13,7 +13,7 @@ const Dashboard = () => {
           <DashboardCenter />
         </section>
         <section className="w-full py-2 mt-4">
-          <RecentOrders />
+          {/* <RecentOrders /> */}
         </section>
     </div>
   )

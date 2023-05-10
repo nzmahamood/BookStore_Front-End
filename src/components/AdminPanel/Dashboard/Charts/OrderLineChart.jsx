@@ -1,14 +1,9 @@
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
-
-const data = [
-  { month: 'Jan', completedOrders: 1200, pendingOrders: 300 },
-  { month: 'Feb', completedOrders: 1500, pendingOrders: 350 },
-  { month: 'Mar', completedOrders: 1800, pendingOrders: 400 },
-  { month: 'Apr', completedOrders: 2000, pendingOrders: 450 },
-  { month: 'May', completedOrders: 2200, pendingOrders: 500 },
-  { month: 'Jun', completedOrders: 2400, pendingOrders: 550 },
-];
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { BASE_URL_NET } from '../../../../utils/domains';
 
 const options = {
   credits: { enabled: false },
@@ -21,7 +16,7 @@ const options = {
     text: ''
   },
   xAxis: {
-    categories: data.map(item => item.month)
+    categories: [],
   },
   yAxis: {
     title: {
@@ -37,18 +32,40 @@ const options = {
     }
   },
   series: [{
-    name: 'Pending Orders',
-    data: data.map(item => item.pendingOrders)
-  }, {
     name: 'Completed Orders',
-    data: data.map(item => item.completedOrders)
+    data: []
   }]
 };
 
 const OrdersByMonthChart = () => {
+  const [chartOptions, setChartOptions] = useState(options)
+  const {access_token} = useSelector((state) => state.token)
+
+
+  useEffect(() => {
+    axios.get(`${BASE_URL_NET}/admin-api/api/order-data/`, {headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${access_token}`
+    }})
+      .then(response => {
+        const data = response.data;
+        setChartOptions({
+          ...options,
+          xAxis: {
+            categories: data.map(item => item.month)
+          },
+          series: [{
+            name: 'Completed Orders',
+            data: data.map(item => item.completedOrders)
+          }]
+        });
+      })
+      .catch(error => console.log(error));
+  }, []);
+
   return (
     <div>
-      <HighchartsReact highcharts={Highcharts} options={options} />
+      <HighchartsReact highcharts={Highcharts} options={chartOptions} />
     </div>
   );
 };
