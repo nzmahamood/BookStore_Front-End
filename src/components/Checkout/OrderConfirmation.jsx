@@ -24,7 +24,7 @@ function OrderComponent({items}){
             <Paper elevation={3} className='w-full md:min-h-[170px] justify-center flex flex-col bg-slate-100 mb-1 p-3'>
                 <Typography className='font-inter text-[17px] text-slate-900' variant='h6'>{book?.title} <span className='text-slate-600 text-xs'>by {authors}</span></Typography>
                 <Typography className='font-inter text-[17px] text-slate-900' variant='h6'>x {quantity}</Typography>
-                <Typography className='font-inter text-[17px] text-slate-900' variant='h6'>$ {totalPrice}</Typography>
+                <Typography className='font-inter text-[17px] text-slate-900' variant='h6'>£ {totalPrice}</Typography>
             </Paper>
             </Grid>
     )

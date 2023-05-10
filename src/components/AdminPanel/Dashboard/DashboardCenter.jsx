@@ -13,7 +13,7 @@ const DashboardCenter = () => {
                     {/* <Typography variant='h6' className='text-slate-900 font-medium tracking-wider'>Customers</Typography> */}
                 </div>
                 
-                <CustomersCharts />
+                {/* <CustomersCharts /> */}
             </Paper>
         </Grid>
         <Grid item xs={6}>

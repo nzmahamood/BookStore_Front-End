@@ -58,7 +58,7 @@ const OrderSummary = ({subTotal, promo, grandTotal}) => {
             </div>
             <div className='flex justify-between py-3 border-b border-[silver]'>
                 <Typography variant='h5' className='text-sm font-semibold text-slate-900 tracking-wider font-inter'>Sub Total</Typography>
-                <Typography variant='h5' className='text-sm font-semibold text-teal-900 tracking-wider font-inter'>${subTotal}</Typography>
+                <Typography variant='h5' className='text-sm font-semibold text-teal-900 tracking-wider font-inter'>£{subTotal}</Typography>
             </div>
             <div className='flex justify-between items-center py-3 border-b border-[silver]'>
                 <Typography variant='h5' className='text-sm font-semibold text-slate-900 tracking-wider font-inter'>Promo Code</Typography>
@@ -69,7 +69,7 @@ const OrderSummary = ({subTotal, promo, grandTotal}) => {
             </div>
             <div className='flex justify-between py-3 border-b border-[silver]'>
                 <Typography variant='h5' className='text-sm font-semibold text-slate-900 tracking-wider font-inter'>Grand Total</Typography>
-                <Typography variant='h5' className='text-sm font-semibold text-teal-900 tracking-wider font-inter'>${grand}</Typography>
+                <Typography variant='h5' className='text-sm font-semibold text-teal-900 tracking-wider font-inter'>£{grand}</Typography>
             </div>
             <div className='flex flex-col gap-2 mt-2 sticky bottom-3 md:static'>
                 <Button variant='contained' className='bg-gradient-to-r from-teal-600 to-teal-900 font-inter text-[16px] capitalize tracking-wider' onClick={handleCheckout} size='medium'>Proceed To Checkout</Button>

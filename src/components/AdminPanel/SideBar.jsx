@@ -41,7 +41,7 @@ const SideBar = () => {
                     </ListItemIcon>
                     <ListItemText>Books</ListItemText>
                 </MenuItem>
-                <MenuItem selected={isActiveTab('/admin/customers')} onClick={()=>handleNavigationClick('/admin/customers')}>
+                {/* <MenuItem selected={isActiveTab('/admin/customers')} onClick={()=>handleNavigationClick('/admin/customers')}>
                     <ListItemIcon>
                         <PeopleAlt fontSize="small" className='text-slate-50'/>
                     </ListItemIcon>
@@ -52,7 +52,7 @@ const SideBar = () => {
                         <BarChart fontSize="small" className='text-slate-50'/>
                     </ListItemIcon>
                     <ListItemText>Sales</ListItemText>
-                </MenuItem>
+                </MenuItem> */}
             </MenuList>
         </Box>
         <div className='flex items-center justify-center w-full h-[64px] border-t border-slate-50'>

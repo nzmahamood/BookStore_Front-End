@@ -14,17 +14,17 @@ const FiltersPaginations = ({data, paginations, currentPage}) => {
   return (
     <div className='hidden md:flex w-full h-[64px] items-center border-b border-slate-700 absolute top-[64px] justify-between'>
       <div className='flex items-center justify-center h-full w-auto'>
-        <h5 className='font-inter font-medium text-lg text-slate-900'><span className='text-teal-700'>999</span> Results</h5>
+        <h5 className='font-inter font-medium text-lg text-slate-900'><span className='text-teal-700'></span> Results</h5>
       </div>
       <div className='flex items-center justify-center h-full w-auto'>
         {/* <h5 className='font-inter font-medium text-lg text-slate-900'><span className='text-slate-900 font-semibold'>Sort |</span> Popular</h5>
         <ChevronDownIcon className='w-4 h-4 ml-3' /> */}
-        <ListBox type={"Sort By"} />
+        {/* <ListBox type={"Sort By"} /> */}
       </div>
       <div className='flex items-center justify-center h-full w-auto'>
         {/* <h5 className='font-inter font-medium text-lg text-slate-900'><span className='text-slate-900 font-semibold'>Category |</span> All</h5>
         <ChevronDownIcon className='w-4 h-4 ml-3' /> */}
-        <ListBox type={"Category"} data={data}/>
+        {/* <ListBox type={"Category"} data={data}/> */}
       </div>
       <div className='flex items-center justify-center h-full w-auto'>
         {/* pagination numbers */}

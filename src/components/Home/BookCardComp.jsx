@@ -95,7 +95,7 @@ const BookCardComp = ({bookDetails, code}) => {
             </div>
             {/* book price */}
             <div className='w-full h-5 flex justify-center mt-1 md:mt-3'>
-                <span className='font-inter font-bold text-teal-700 text-[17px]'><span className='text-slate-700'>$ </span>{bookDetails.average_rating}</span>
+                <span className='font-inter font-bold text-teal-700 text-[17px]'><span className='text-slate-700'>£ </span>{bookDetails.average_rating}</span>
             </div>
             {/* buttons */}
             <div className='w-full h-[46px] flex justify-between items-end relative bottom-0 px-1'>

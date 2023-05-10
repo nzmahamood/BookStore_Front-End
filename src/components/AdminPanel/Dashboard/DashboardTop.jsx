@@ -7,8 +7,8 @@ const DashboardTop = () => {
     const cardItems = [
         {name: "Orders", value: "1350", icon: <ShoppingBasket />},
         {name: "Revenue", value: "10", icon: <MonetizationOn />},
-        {name: "Conversion", value: "10", icon: <Add />},
-        {name: "Visitors", value: "10", icon: <Visibility />},
+        // {name: "Conversion", value: "10", icon: <Add />},
+        // {name: "Visitors", value: "10", icon: <Visibility />},
     ]
   return (
     <Grid container spacing={2}>
@@ -19,7 +19,7 @@ const DashboardTop = () => {
                     <Typography variant='h5' className='text-sm'>{card.name}</Typography>
                 </Box>
                 <Box className='w-full flex gap-2 items-center mt-3 relative'>
-                    <Typography variant='h5' className='text-sm font-semibold'>{card.value}</Typography>
+                    <Typography variant='h5' className='text-sm font-semibold'></Typography>
                     {/* charts need to be here*/}
                     <DashboardCharts type={card.name}/>
                 </Box>

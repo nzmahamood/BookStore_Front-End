@@ -22,12 +22,12 @@ const ButtonComponent = ({book}) => {
                 <Basket height='h-5 text-teal-700' fill='fill-slate-50 hover:fill-slate-900'/>
             </span>
         </button>
-        <button className='md:mr-3 w-[90%] md:w-[194px] h-full p-3 flex bg-white border border-teal-700 rounded-md text-black text-sm font-semibold font-inter justify-center hover:bg-teal-700 hover:text-white-'>
+        {/* <button className='md:mr-3 w-[90%] md:w-[194px] h-full p-3 flex bg-white border border-teal-700 rounded-md text-black text-sm font-semibold font-inter justify-center hover:bg-teal-700 hover:text-white-'>
             Add to WishList 
             <span className='pl-2'>
                 <HeartIcon className='w-4 h-4' />
             </span>
-        </button>
+        </button> */}
         
     </div>
   )

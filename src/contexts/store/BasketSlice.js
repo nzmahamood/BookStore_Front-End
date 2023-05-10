@@ -229,8 +229,8 @@ const basketSlice = createSlice({
           // For example, you can update the state based on the response data
           console.log('action-data', action.payload)
           state.loading = false
-          state.books = action.payload.basket_items
-          state.basket_id = action.payload.id
+          state.books = action?.payload?.basket_items
+          state.basket_id = action?.payload?.id
           state.error = ''
           console.log('basketFetchstate:', state);
         })
